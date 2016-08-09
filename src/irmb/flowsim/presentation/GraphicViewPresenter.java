@@ -1,28 +1,43 @@
 package irmb.flowsim.presentation;
 
-import irmb.flowsim.model.GeometryRepository;
+import irmb.flowsimtest.presentation.ViewSpy;
 
 /**
  * Created by Sven on 27.07.2016.
  */
 public class GraphicViewPresenter {
-    private MouseStrategyFactory mouseStrategyFactory;
-    private MouseStrategy strategy;
 
-    public GraphicViewPresenter(MouseStrategyFactory factory) {
-        mouseStrategyFactory = factory;
-        strategy = mouseStrategyFactory.createStrategy("Default");
-    }
+    private View view;
+    private int timesCalled;
+    private int lastX;
+    private int lastY;
+    private boolean paintMode;
 
-    public void selectCreateLine() {
-        mouseStrategyFactory.createStrategy("BuildLine");
+    public GraphicViewPresenter() {
+
     }
 
     public void handleLeftClick(int x, int y) {
-        strategy.executeLeftClick(x, y);
+        if(paintMode) {
+            timesCalled++;
+            if (timesCalled == 2) {
+                view.paintObject(lastX, lastY, x, y);
+            }
+        lastX = x;
+        lastY = y;
+        }
     }
 
-    public void setMouseStrategyFactory(MouseStrategyFactory mouseStrategyFactory) {
-        this.mouseStrategyFactory = mouseStrategyFactory;
+    public void activatePaintMode() {
+        paintMode = true;
+        timesCalled = 0;
+    }
+
+    public void deactivatePaintMode() {
+        paintMode = false;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }
