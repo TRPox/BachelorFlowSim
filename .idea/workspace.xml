@@ -23,59 +23,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GraphicViewPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/presentation/GraphicViewPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphicViewPresenterTestWithViewSpy.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GraphicViewPresenterTestWithViewSpy.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestWithViewSpy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+            <state relative-caret-position="615">
+              <caret line="127" column="8" selection-start-line="127" selection-start-column="8" selection-end-line="127" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphicViewPresenterTestDeactivatedPaintMode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestDeactivatedPaintMode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="85" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphicViewPresenterTestActivatedPaintMode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestActivatedPaintMode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestClickedTwoTimesActivatedAgain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
-              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+                <element signature="e#1446#1447#0" expanded="true" />
+                <element signature="e#1493#1494#0" expanded="true" />
+                <element signature="class#ClickedTwoTimesPaintModeActivatedAgainContext#0;class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+                <element signature="class#DeactivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+                <element signature="e#4738#4739#0" expanded="true" />
+                <element signature="e#4787#4788#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,8 +45,8 @@
       <file leaf-file-name="ViewSpy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/ViewSpy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+            <state relative-caret-position="119">
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,10 +54,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasicView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BasicView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
+            <state relative-caret-position="816">
               <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -118,7 +79,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="272">
               <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -181,13 +142,13 @@
         <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestInPaintModeWithViewSpy.java" />
         <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTest.java" />
         <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestActivatedPaintModeWithViewSpy.java" />
-        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestDeactivatedPaintMode.java" />
-        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestWithViewSpy.java" />
-        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestActivatedPaintMode.java" />
-        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestClickedTwoTimesActivatedAgain.java" />
         <option value="$PROJECT_DIR$/src/irmb/flowsim/presentation/GraphicViewPresenter.java" />
         <option value="$PROJECT_DIR$/src/irmb/flowsim/Main.java" />
         <option value="$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.java" />
+        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestActivatedPaintMode.java" />
+        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestClickedTwoTimesActivatedAgain.java" />
+        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestWithViewSpy.java" />
+        <option value="$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestDeactivatedPaintMode.java" />
       </list>
     </option>
   </component>
@@ -228,12 +189,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="BachelorFlowSim" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -341,10 +307,6 @@
               <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BasicView" />
-              <option name="myItemType" value="com.intellij.uiDesigner.projectView.FormNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -415,7 +377,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -424,11 +385,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="js-jscs-nodeInterpreter" value="D:\Programme\nodejs\node.exe" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/junit-hierarchicalcontextrunner-4.12.1.jar!/" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="412" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -447,33 +411,7 @@
       <recent name="irmb.flowsim.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="GraphicViewPresenterTestDeactivatedPaintMode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="irmb.flowsimtest.presentation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="BachelorFlowSim" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="irmb.flowsimtest.presentation" />
-      <option name="MAIN_CLASS_NAME" value="irmb.flowsimtest.presentation.GraphicViewPresenterTestDeactivatedPaintMode" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.GraphicViewPresenterTestWithViewSpy">
     <configuration default="false" name="irmb.flowsimtest.presentation in BachelorFlowSim" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -570,6 +508,32 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="BachelorFlowSim" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="GraphicViewPresenterTestWithViewSpy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="irmb.flowsimtest.presentation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="BachelorFlowSim" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="irmb.flowsimtest.presentation" />
+      <option name="MAIN_CLASS_NAME" value="irmb.flowsimtest.presentation.GraphicViewPresenterTestWithViewSpy" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -974,19 +938,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestDeactivatedPaintMode" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.irmb.flowsimtest.presentation in BachelorFlowSim" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain.buildTwoLinesAcceptanceTest" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.irmb.flowsimtest.presentation in BachelorFlowSim" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain.buildTwoLinesAcceptanceTest" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestWithViewSpy" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain.buildTwoLinesAcceptanceTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.irmb.flowsimtest.presentation in BachelorFlowSim" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestDeactivatedPaintMode" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestWithViewSpy" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GraphicViewPresenterTestClickedTwoTimesActivatedAgain.buildTwoLinesAcceptanceTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.irmb.flowsimtest.presentation in BachelorFlowSim" />
       </list>
     </recent_temporary>
   </component>
@@ -1012,24 +976,26 @@
       <workItem from="1470411915966" duration="44000" />
       <workItem from="1470750002572" duration="11860000" />
       <workItem from="1470769869981" duration="5630000" />
+      <workItem from="1470838203818" duration="2236000" />
+      <workItem from="1470841387739" duration="849000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="GraphicViewPresenterTestClickedTwoTimesActivatedAgain - 2016.08.09 at 22h 39m 09s.xml">
-      <configuration name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphicViewPresenterTestClickedTwoTimesActivatedAgain - 2016.08.09 at 22h 39m 32s.xml">
-      <configuration name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphicViewPresenterTestClickedTwoTimesActivatedAgain - 2016.08.09 at 22h 41m 18s.xml">
-      <configuration name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="GraphicViewPresenterTestClickedTwoTimesActivatedAgain - 2016.08.09 at 22h 41m 57s.xml">
       <configuration name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain" configurationId="JUnit" />
     </history-entry>
     <history-entry file="GraphicViewPresenterTestClickedTwoTimesActivatedAgain_buildTwoLinesAcceptanceTest - 2016.08.09 at 22h 39m 24s.xml">
       <configuration name="GraphicViewPresenterTestClickedTwoTimesActivatedAgain.buildTwoLinesAcceptanceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphicViewPresenterTestWithViewSpy - 2016.08.10 at 17h 08m 32s.xml">
+      <configuration name="GraphicViewPresenterTestWithViewSpy" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphicViewPresenterTestWithViewSpy - 2016.08.10 at 17h 09m 35s.xml">
+      <configuration name="GraphicViewPresenterTestWithViewSpy" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphicViewPresenterTestWithViewSpy - 2016.08.10 at 17h 11m 32s.xml">
+      <configuration name="GraphicViewPresenterTestWithViewSpy" configurationId="JUnit" />
     </history-entry>
     <history-entry file="irmb_flowsimtest_presentation_in_BachelorFlowSim - 2016.08.09 at 22h 12m 43s.xml">
       <configuration name="irmb.flowsimtest.presentation in BachelorFlowSim" configurationId="JUnit" />
@@ -1048,11 +1014,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47792000" />
+    <option name="totallyTimeSpent" value="50877000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2064" height="1128" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1062,12 +1028,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23517588" sideWeight="0.501996" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23517588" sideWeight="0.498004" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30251256" sideWeight="0.498004" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23702595" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964823" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1078,7 +1045,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964823" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1092,9 +1058,14 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1137,6 +1108,13 @@
           <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="class#ClickedTwoTimesPaintModeActivatedAgainContext#0;class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="class#DeactivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#4738#4739#0" expanded="true" />
+            <element signature="e#4787#4788#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1168,6 +1146,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="class#ClickedTwoTimesPaintModeActivatedAgainContext#0;class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="class#DeactivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#4738#4739#0" expanded="true" />
+            <element signature="e#4787#4788#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1197,6 +1182,13 @@
           <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="class#ClickedTwoTimesPaintModeActivatedAgainContext#0;class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="class#DeactivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#4738#4739#0" expanded="true" />
+            <element signature="e#4787#4788#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1227,23 +1219,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="3898" column="16" selection-start-line="3898" selection-start-column="16" selection-end-line="3898" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/presentation/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/model/geometry/Line.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1251,7 +1226,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1263,24 +1237,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestWithViewSpy.java">
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.form">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        <state relative-caret-position="816">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/model/geometry/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="272">
           <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1288,10 +1276,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestDeactivatedPaintMode.java">
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/presentation/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="85" />
+        <state relative-caret-position="102">
+          <caret line="6" column="77" selection-start-line="6" selection-start-column="77" selection-end-line="6" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/ViewSpy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1300,43 +1295,118 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestActivatedPaintMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="491">
+          <caret line="35" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestClickedTwoTimesActivatedAgain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="765">
+          <caret line="45" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/ViewSpy.java">
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestDeactivatedPaintMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/irmb/flowsim/view/BasicView.java">
+    <entry file="file://$PROJECT_DIR$/src/irmb/flowsimtest/presentation/GraphicViewPresenterTestWithViewSpy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="615">
+          <caret line="127" column="8" selection-start-line="127" selection-start-column="8" selection-end-line="127" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="class#ClickedTwoTimesPaintModeActivatedAgainContext#0;class#ActivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="class#DeactivatedPaintModeContext#0;class#GraphicViewPresenterTestWithViewSpy#0" expanded="false" />
+            <element signature="e#4738#4739#0" expanded="true" />
+            <element signature="e#4787#4788#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>BachelorFlowSim</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

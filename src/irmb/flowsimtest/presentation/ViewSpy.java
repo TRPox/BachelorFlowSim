@@ -33,19 +33,19 @@ public class ViewSpy implements View {
         return paintObjectWasCalled;
     }
 
-    public double getStartX() {
+    public double getLastStartX() {
         return startX;
     }
 
-    public double getStartY() {
+    public double getLastStartY() {
         return startY;
     }
 
-    public double getEndX() {
+    public double getLastEndX() {
         return endX;
     }
 
-    public double getEndY() {
+    public double getLastEndY() {
         return endY;
     }
 
