@@ -3,6 +3,9 @@ package irmb.flowsimtest.presentation;
 import irmb.flowsim.presentation.GraphicViewPresenter;
 import irmb.flowsim.presentation.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Sven on 09.08.2016.
  */
@@ -10,23 +13,20 @@ public class ViewSpy implements View {
 
 
     private boolean paintObjectWasCalled;
-    private double startX;
-    private double startY;
-    private double endX;
-    private double endY;
     private int timesPaintObjectCalled;
+    private List<Integer> allCoordinates = new ArrayList<>();
+    private String objectString;
 
     public ViewSpy(GraphicViewPresenter presenter) {
 
     }
 
-    public void paintObject(double startX, double startY, double endX, double endY) {
+    @Override
+    public void paintObject(List<Integer> coordinates) {
+        allCoordinates.clear();
         paintObjectWasCalled = true;
         timesPaintObjectCalled++;
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        allCoordinates.addAll(coordinates);
     }
 
     public boolean wasPaintObjectCalled() {
@@ -34,22 +34,31 @@ public class ViewSpy implements View {
     }
 
     public double getLastStartX() {
-        return startX;
+        return allCoordinates.get(allCoordinates.size() - 4);
     }
 
     public double getLastStartY() {
-        return startY;
+        return allCoordinates.get(allCoordinates.size() - 3);
     }
 
     public double getLastEndX() {
-        return endX;
+        return allCoordinates.get(allCoordinates.size() - 2);
     }
 
     public double getLastEndY() {
-        return endY;
+        return allCoordinates.get(allCoordinates.size() - 1);
     }
 
     public int getTimesPaintObjectCalled() {
         return timesPaintObjectCalled;
+    }
+
+    public List<Integer> getAllCoordinates() {
+        return allCoordinates;
+    }
+
+
+    public String getObjectString() {
+        return objectString;
     }
 }

@@ -43,52 +43,136 @@ public class GraphicViewPresenterTestWithViewSpy {
         sut.handleLeftClick(endX, endY);
     }
 
+    private void assertTwoPointsTransmittedToView() {
+        assertTrue(viewSpy.wasPaintObjectCalled());
+        assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+        assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+        assertEquals(4, viewSpy.getAllCoordinates().size());
+    }
+
     public class ActivatedPaintModeContext {
-        @Before
-        public void setUp() {
-            sut.activatePaintMode();
+
+        public class InvalidObjectTypeContext {
+
+            @Test
+            public void whenGivenEmptyStringAndLeftClickingTwice_shouldNotCallPaintObject() {
+                sut.activatePaintMode("");
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+            @Test
+            public void whenGivenInvalidStringAndLeftClickingTwice_shouldNotCallPaintObject() {
+                sut.activatePaintMode("Invalid");
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
         }
 
-        @Test
-        public void buildSingleLineAcceptanceTest() {
+        public class BuildLineContext {
 
-            transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+            @Before
+            public void setUp() {
+                sut.activatePaintMode("Line");
+            }
 
-            assertTrue(viewSpy.wasPaintObjectCalled());
-            assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-            assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+            @Test
+            public void buildSingleLineAcceptanceTest() {
+
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+
+                assertTwoPointsTransmittedToView();
+            }
+
+
+            @Test
+            public void whenLeftClickingTwice_shouldCallPaintObject() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertTrue(viewSpy.wasPaintObjectCalled());
+            }
+
+            @Test
+            public void whenLeftClickingOnce_shouldNotCallPaintObject() {
+                sut.handleLeftClick(800, 600);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+
+            @Test
+            public void whenLeftClickingTwice_paintObjectShouldReceiveCorrectCoordinates() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+            }
+
+            @Test
+            public void whenClickingMoreThanTwice_shouldCallPaintObjectOnce() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertEquals(1, viewSpy.getTimesPaintObjectCalled());
+            }
+
+            @Test
+            public void whenRightClicking_shouldNotCallPaintObject() {
+                sut.handleRightClick(firstStartX, firstStartY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+            @Test
+            public void whenLeftClickingOnce_RightClickingOnce_LeftClickingOnce_shouldNotCallPaintObject() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleRightClick(firstStartX, firstStartY);
+                sut.handleLeftClick(firstEndX, firstEndY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+            public class BuildMultipleLinesContext {
+
+                private final int secondStartX = 864;
+                private final int secondStartY = 965;
+                private final int secondEndX = 755;
+                private final int secondEndY = 851;
+
+                @Before
+                public void setUp() {
+                    transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                    sut.activatePaintMode("Line");
+                }
+
+                @Test
+                public void buildTwoLinesAcceptanceTest() {
+
+                    transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+
+                    assertEquals(2, viewSpy.getTimesPaintObjectCalled());
+                    assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+                    assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+
+                }
+
+                @Test
+                public void whenLeftClickingTwice_paintObjectShouldNotReceiveOldCoordinates() {
+                    transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+
+                    assertFalse(viewSpy.getAllCoordinates().contains(firstStartX));
+                    assertFalse(viewSpy.getAllCoordinates().contains(firstStartY));
+                    assertFalse(viewSpy.getAllCoordinates().contains(firstEndX));
+                    assertFalse(viewSpy.getAllCoordinates().contains(firstEndY));
+                }
+
+                @Test
+                public void whenLeftClickingTwice_paintObjectShouldReceiveCorrectCoordinates() {
+
+                    transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+
+                    assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+                    assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                }
+
+            }
         }
 
-
-        @Test
-        public void whenLeftClickingTwice_shouldCallPaintObject() {
-            transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
-            assertTrue(viewSpy.wasPaintObjectCalled());
-        }
-
-        @Test
-        public void whenLeftClickingOnce_shouldNotCallPaintObject() {
-            sut.handleLeftClick(800, 600);
-            assertFalse(viewSpy.wasPaintObjectCalled());
-        }
-
-
-        @Test
-        public void whenLeftClickingTwice_paintObjectShouldReceiveCorrectCoordinates() {
-            transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
-            assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-            assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
-        }
-
-        @Test
-        public void whenClickingMoreThanTwice_shouldCallPaintObjectOnce() {
-            transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
-            transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
-            assertEquals(1, viewSpy.getTimesPaintObjectCalled());
-        }
-
-
-        public class ClickedTwoTimesPaintModeActivatedAgainContext {
+        public class BuildPolyLineContext {
 
             private final int secondStartX = 864;
             private final int secondStartY = 965;
@@ -97,33 +181,91 @@ public class GraphicViewPresenterTestWithViewSpy {
 
             @Before
             public void setUp() {
+                sut.activatePaintMode("PolyLine");
+            }
+
+            @Test
+            public void buildPolyLineAcceptanceTest() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
-                sut.activatePaintMode();
+                transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+                sut.handleRightClick(secondEndX, secondEndY);
+
+                assertEquals(1, viewSpy.getTimesPaintObjectCalled());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getAllCoordinates().get(0), viewSpy.getAllCoordinates().get(1));
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getAllCoordinates().get(2), viewSpy.getAllCoordinates().get(3));
+                assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getAllCoordinates().get(4), viewSpy.getAllCoordinates().get(5));
+                assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getAllCoordinates().get(6), viewSpy.getAllCoordinates().get(7));
             }
 
             @Test
-            public void buildTwoLinesAcceptanceTest() {
-
-                transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
-
-                assertEquals(2, viewSpy.getTimesPaintObjectCalled());
-                assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
-
+            public void whenRightClickingBeforeLeftClick_shouldNotCallPaintObject() {
+                sut.handleRightClick(firstStartX, firstStartY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
             }
 
             @Test
-            public void whenLeftClickingTwice_paintObjectShouldReceiveCorrectCoordinates() {
+            public void whenRightClickingAfterLeftClickingOnce_shouldNotCallPaintObject() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleRightClick(firstStartX, firstStartY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
 
+            @Test
+            public void whenLeftClickingTwice_shouldNotCallPaintObject() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+            @Test
+            public void whenLeftClickingFourTimesAndRightClickingOnce_shouldCallPaintObjectOnce() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
                 transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+                sut.handleRightClick(secondEndX, secondEndY);
 
-                assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                assertEquals(1, viewSpy.getTimesPaintObjectCalled());
+            }
+
+            @Test
+            public void whenLeftClickingFourTimesAndRightClickingOnce_paintObjectShouldReceiveCorrectCoordinates() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                transmitTwoPointsToPresenter(secondStartX, secondStartY, secondEndX, secondEndY);
+                sut.handleRightClick(secondEndX, secondEndY);
+
+                assertEquals(8, viewSpy.getAllCoordinates().size());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getAllCoordinates().get(0), viewSpy.getAllCoordinates().get(1));
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getAllCoordinates().get(2), viewSpy.getAllCoordinates().get(3));
+                assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getAllCoordinates().get(4), viewSpy.getAllCoordinates().get(5));
+                assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getAllCoordinates().get(6), viewSpy.getAllCoordinates().get(7));
+            }
+
+            @Test
+            public void whenRightClickingSecondTime_paintObjectShouldOnlyBeCalledOnce() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                sut.handleRightClick(secondEndX, secondEndY);
+                sut.handleRightClick(secondEndX, secondEndY);
+                assertEquals(1, viewSpy.getTimesPaintObjectCalled());
             }
 
         }
 
+        public class BuildRectangleContext {
+            @Before
+            public void setUp() {
+                sut.activatePaintMode("Rectangle");
+            }
+
+            @Test
+            public void buildRectangleAcceptanceTest() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertTwoPointsTransmittedToView();
+                assertEquals("Rectangle", viewSpy.getObjectString());
+            }
+        }
+
     }
+
+
 
     public class DeactivatedPaintModeContext {
 
@@ -135,6 +277,12 @@ public class GraphicViewPresenterTestWithViewSpy {
         @Test
         public void whenLeftClickingTwice_shouldNotCallPaintObject() {
             transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+            assertFalse(viewSpy.wasPaintObjectCalled());
+        }
+
+        @Test
+        public void whenRightClicking_shouldNotCallPaintObject() {
+            sut.handleRightClick(firstStartX, firstStartY);
             assertFalse(viewSpy.wasPaintObjectCalled());
         }
     }

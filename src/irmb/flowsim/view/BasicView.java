@@ -7,51 +7,59 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sven on 09.08.2016.
  */
-public class BasicView extends JFrame implements View, MouseListener{
-    private JButton linieButton;
+public class BasicView extends JFrame implements View, MouseListener {
+    private JButton lineButton;
     private JPanel panel;
+    private JButton polyLineButton;
     private GraphicViewPresenter presenter;
     private double startX;
     private double startY;
     private double endX;
     private double endY;
-
+    private List<Integer> paintList = new ArrayList<>();
 
     public BasicView(GraphicViewPresenter presenter) {
         this.add(panel);
         this.presenter = presenter;
-        linieButton.addActionListener(e -> presenter.activatePaintMode());
+        lineButton.addActionListener(e -> presenter.activatePaintMode("Line"));
+        polyLineButton.addActionListener(e -> presenter.activatePaintMode("PolyLine"));
         panel.addMouseListener(this);
     }
 
     public void setPresenter(GraphicViewPresenter presenter) {
         this.presenter = presenter;
-        linieButton.addActionListener(e -> presenter.activatePaintMode());
+        lineButton.addActionListener(e -> presenter.activatePaintMode("Line"));
+        polyLineButton.addActionListener(e -> presenter.activatePaintMode("PolyLine"));
     }
 
     @Override
-    public void paintObject(double startX, double startY, double endX, double endY) {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+    public void paintObject(List<Integer> coordinates) {
+        paintList.clear();
+        paintList.addAll(coordinates);
+        System.out.println(paintList);
         repaint();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawLine((int)startX, (int)startY, (int)endX, (int)endY);
+        for (int i = 0; i < paintList.size() - 3; ) {
+            g.drawLine(paintList.get(i++), paintList.get(i++), paintList.get(i++), paintList.get(i++));
+            i-=2;
+        }
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = e.getXOnScreen() ;
-        presenter.handleLeftClick(e.getXOnScreen() - this.getX(), e.getYOnScreen() - this.getY());
+
+
     }
 
     @Override
@@ -61,7 +69,12 @@ public class BasicView extends JFrame implements View, MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        int x = e.getXOnScreen();
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            presenter.handleLeftClick(e.getXOnScreen() - this.getX(), e.getYOnScreen() - this.getY());
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            presenter.handleRightClick(e.getXOnScreen() - this.getX(), e.getYOnScreen() - this.getY());
+        }
     }
 
     @Override
@@ -73,4 +86,5 @@ public class BasicView extends JFrame implements View, MouseListener{
     public void mouseExited(MouseEvent e) {
 
     }
+
 }
