@@ -15,18 +15,19 @@ public class ViewSpy implements View {
     private boolean paintObjectWasCalled;
     private int timesPaintObjectCalled;
     private List<Integer> allCoordinates = new ArrayList<>();
-    private String objectString;
+    private String objectType;
 
     public ViewSpy(GraphicViewPresenter presenter) {
 
     }
 
     @Override
-    public void paintObject(List<Integer> coordinates) {
+    public void paintObject(String objectType, List<Integer> coordinates) {
         allCoordinates.clear();
         paintObjectWasCalled = true;
         timesPaintObjectCalled++;
         allCoordinates.addAll(coordinates);
+        this.objectType = objectType;
     }
 
     public boolean wasPaintObjectCalled() {
@@ -58,7 +59,7 @@ public class ViewSpy implements View {
     }
 
 
-    public String getObjectString() {
-        return objectString;
+    public String getObjectType() {
+        return objectType;
     }
 }

@@ -82,6 +82,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
                 assertTwoPointsTransmittedToView();
+                assertEquals("Line", viewSpy.getObjectType());
             }
 
 
@@ -195,6 +196,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getAllCoordinates().get(2), viewSpy.getAllCoordinates().get(3));
                 assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getAllCoordinates().get(4), viewSpy.getAllCoordinates().get(5));
                 assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getAllCoordinates().get(6), viewSpy.getAllCoordinates().get(7));
+                assertEquals("PolyLine", viewSpy.getObjectType());
             }
 
             @Test
@@ -246,7 +248,6 @@ public class GraphicViewPresenterTestWithViewSpy {
                 sut.handleRightClick(secondEndX, secondEndY);
                 assertEquals(1, viewSpy.getTimesPaintObjectCalled());
             }
-
         }
 
         public class BuildRectangleContext {
@@ -259,7 +260,33 @@ public class GraphicViewPresenterTestWithViewSpy {
             public void buildRectangleAcceptanceTest() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
                 assertTwoPointsTransmittedToView();
-                assertEquals("Rectangle", viewSpy.getObjectString());
+                assertEquals("Rectangle", viewSpy.getObjectType());
+            }
+
+            @Test
+            public void whenLeftClickingTwice_shouldCallPaintModeWithObjectType() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertEquals("Rectangle", viewSpy.getObjectType());
+            }
+        }
+
+        public class BuildCircleContext {
+            @Before
+            public void setUp() {
+                sut.activatePaintMode("Circle");
+            }
+
+            @Test
+            public void buildRectangleAcceptanceTest() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertTwoPointsTransmittedToView();
+                assertEquals("Circle", viewSpy.getObjectType());
+            }
+
+            @Test
+            public void whenLeftClickingTwice_shouldCallPaintModeWithObjectType() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                assertEquals("Circle", viewSpy.getObjectType());
             }
         }
 

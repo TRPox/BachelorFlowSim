@@ -17,42 +17,67 @@ public class BasicView extends JFrame implements View, MouseListener {
     private JButton lineButton;
     private JPanel panel;
     private JButton polyLineButton;
+    private JButton rectangleButton;
+    private JButton circleButton;
     private GraphicViewPresenter presenter;
     private double startX;
     private double startY;
     private double endX;
     private double endY;
     private List<Integer> paintList = new ArrayList<>();
+    private String objectType = "";
 
     public BasicView(GraphicViewPresenter presenter) {
         this.add(panel);
         this.presenter = presenter;
-        lineButton.addActionListener(e -> presenter.activatePaintMode("Line"));
-        polyLineButton.addActionListener(e -> presenter.activatePaintMode("PolyLine"));
+        setButtonActions();
         panel.addMouseListener(this);
     }
 
     public void setPresenter(GraphicViewPresenter presenter) {
         this.presenter = presenter;
+        setButtonActions();
+    }
+
+    private void setButtonActions() {
         lineButton.addActionListener(e -> presenter.activatePaintMode("Line"));
         polyLineButton.addActionListener(e -> presenter.activatePaintMode("PolyLine"));
+        rectangleButton.addActionListener(e -> presenter.activatePaintMode("Rectangle"));
+        circleButton.addActionListener(e -> presenter.activatePaintMode("Circle"));
     }
 
     @Override
-    public void paintObject(List<Integer> coordinates) {
+    public void paintObject(String objectType, List<Integer> coordinates) {
         paintList.clear();
         paintList.addAll(coordinates);
         System.out.println(paintList);
+        this.objectType = objectType;
         repaint();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for (int i = 0; i < paintList.size() - 3; ) {
-            g.drawLine(paintList.get(i++), paintList.get(i++), paintList.get(i++), paintList.get(i++));
-            i-=2;
+        if (objectType.equals("Rectangle")) {
+            if (paintList.size() == 4) {
+                int minX = paintList.get(0) < paintList.get(2) ? paintList.get(0) : paintList.get(2);
+                int minY = paintList.get(1) < paintList.get(3) ? paintList.get(1) : paintList.get(3);
+                int width = Math.abs(paintList.get(2) - paintList.get(0));
+                int height = Math.abs(paintList.get(3) - paintList.get(1));
+                g.drawRect(minX, minY, width, height);
+            }
+        } else if (objectType.equals("Circle")) {
+            int width = Math.abs(paintList.get(2) - paintList.get(0));
+            int height = Math.abs(paintList.get(3) - paintList.get(1));
+            int radius = (int) Math.sqrt(height * height + width * width);
+            g.drawOval(paintList.get(0)-radius, paintList.get(1)-radius, radius*2, radius*2);
+        } else {
+            for (int i = 0; i < paintList.size() - 3; ) {
+                g.drawLine(paintList.get(i++), paintList.get(i++), paintList.get(i++), paintList.get(i++));
+                i -= 2;
+            }
         }
+
 
     }
 

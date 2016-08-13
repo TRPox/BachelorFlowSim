@@ -13,6 +13,7 @@ public class GraphicViewPresenter {
     private boolean paintMode;
     private String objectType;
     private List<Integer> coordinates = new ArrayList<>();
+    private String[] twoClickObjectTypes = {"Line", "Rectangle", "Circle"};
 
     public GraphicViewPresenter() {
 
@@ -23,15 +24,15 @@ public class GraphicViewPresenter {
             coordinates.add(x);
             coordinates.add(y);
             timesCalled++;
-            if (objectType.equals("Line")) {
-                if (timesCalled == 2) {
-                    view.paintObject(coordinates);
-                }
-            } else if (objectType.equals("Rectangle")) {
-                if (timesCalled == 2) {
-                    view.paintObject(coordinates);
-                }
-            }
+            for (String twoClickObjectType : twoClickObjectTypes)
+                if (twoClickObjectType.equals(objectType))
+                    callPaintObjectAfterSecondClick();
+        }
+    }
+
+    private void callPaintObjectAfterSecondClick() {
+        if (timesCalled == 2) {
+            view.paintObject(objectType, coordinates);
         }
     }
 
@@ -39,7 +40,7 @@ public class GraphicViewPresenter {
         if (paintMode)
             if (timesCalled > 1)
                 if (objectType.equals("PolyLine"))
-                    view.paintObject(coordinates);
+                    view.paintObject(objectType, coordinates);
         deactivatePaintMode();
     }
 
