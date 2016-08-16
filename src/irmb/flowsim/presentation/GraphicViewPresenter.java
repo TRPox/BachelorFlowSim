@@ -14,6 +14,7 @@ public class GraphicViewPresenter {
     private String objectType;
     private List<Integer> coordinates = new ArrayList<>();
     private String[] twoClickObjectTypes = {"Line", "Rectangle", "Circle"};
+    private boolean mouseMoved;
 
     public GraphicViewPresenter() {
 
@@ -21,19 +22,33 @@ public class GraphicViewPresenter {
 
     public void handleLeftClick(int x, int y) {
         if (paintMode) {
-            coordinates.add(x);
-            coordinates.add(y);
+            if (mouseMoved)
+                adjustLastPoint(x, y);
+            else
+                addPoint(x, y);
             timesCalled++;
-            for (String twoClickObjectType : twoClickObjectTypes)
-                if (twoClickObjectType.equals(objectType))
-                    callPaintObjectAfterSecondClick();
+            mouseMoved = false;
+            if (isTwoClickObjectType())
+                callPaintObjectAfterSecondClick();
+
         }
     }
 
+    private void addPoint(int x, int y) {
+        coordinates.add(x);
+        coordinates.add(y);
+    }
+
+    private boolean isTwoClickObjectType() {
+        for (String twoClickObjectType : twoClickObjectTypes)
+            if (twoClickObjectType.equals(objectType))
+                return true;
+        return false;
+    }
+
     private void callPaintObjectAfterSecondClick() {
-        if (timesCalled == 2) {
+        if (timesCalled == 2)
             view.paintObject(objectType, coordinates);
-        }
     }
 
     public void handleRightClick(int x, int y) {
@@ -43,6 +58,28 @@ public class GraphicViewPresenter {
                     view.paintObject(objectType, coordinates);
         deactivatePaintMode();
     }
+
+    public void handleMouseMove(int x, int y) {
+        if (paintMode)
+            if (!mouseMoved) {
+                addPoint(x, y);
+                mouseMoved = true;
+            } else {
+                adjustLastPoint(x, y);
+            }
+        if (!isObjectFinished())
+            view.paintObject(objectType, coordinates);
+    }
+
+    private boolean isObjectFinished() {
+        return !(timesCalled > 0 && timesCalled < 2);
+    }
+
+    private void adjustLastPoint(int x, int y) {
+        coordinates.set(coordinates.size() - 2, x);
+        coordinates.set(coordinates.size() - 1, y);
+    }
+
 
     public void activatePaintMode(String type) {
         paintMode = true;
@@ -58,6 +95,5 @@ public class GraphicViewPresenter {
     public void setView(View view) {
         this.view = view;
     }
-
 
 }

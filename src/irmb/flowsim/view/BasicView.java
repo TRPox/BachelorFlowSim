@@ -7,13 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Sven on 09.08.2016.
  */
-public class BasicView extends JFrame implements View, MouseListener {
+public class BasicView extends JFrame implements View, MouseListener, MouseMotionListener {
     private JButton lineButton;
     private JPanel panel;
     private JButton polyLineButton;
@@ -32,6 +33,7 @@ public class BasicView extends JFrame implements View, MouseListener {
         this.presenter = presenter;
         setButtonActions();
         panel.addMouseListener(this);
+        panel.addMouseMotionListener(this);
     }
 
     public void setPresenter(GraphicViewPresenter presenter) {
@@ -70,7 +72,7 @@ public class BasicView extends JFrame implements View, MouseListener {
             int width = Math.abs(paintList.get(2) - paintList.get(0));
             int height = Math.abs(paintList.get(3) - paintList.get(1));
             int radius = (int) Math.sqrt(height * height + width * width);
-            g.drawOval(paintList.get(0)-radius, paintList.get(1)-radius, radius*2, radius*2);
+            g.drawOval(paintList.get(0) - radius, paintList.get(1) - radius, radius * 2, radius * 2);
         } else {
             for (int i = 0; i < paintList.size() - 3; ) {
                 g.drawLine(paintList.get(i++), paintList.get(i++), paintList.get(i++), paintList.get(i++));
@@ -94,7 +96,6 @@ public class BasicView extends JFrame implements View, MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int x = e.getXOnScreen();
         if (e.getButton() == MouseEvent.BUTTON1) {
             presenter.handleLeftClick(e.getXOnScreen() - this.getX(), e.getYOnScreen() - this.getY());
         } else if (e.getButton() == MouseEvent.BUTTON3) {
@@ -112,4 +113,13 @@ public class BasicView extends JFrame implements View, MouseListener {
 
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        presenter.handleMouseMove(e.getXOnScreen() - this.getX(), e.getYOnScreen() - this.getY());
+    }
 }

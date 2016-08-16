@@ -2,6 +2,7 @@ package irmb.flowsimtest.presentation;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import irmb.flowsim.presentation.GraphicViewPresenter;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,13 @@ public class GraphicViewPresenterTestWithViewSpy {
         sut.handleLeftClick(endX, endY);
     }
 
+    private void transmitTwoPointsToPresenterWithMouseMove(int startX, int startY, int endX, int endY) {
+        sut.handleMouseMove(0, 0);
+        sut.handleLeftClick(startX, startY);
+        sut.handleMouseMove(startX + 1, startY + 1);
+        sut.handleLeftClick(endX, endY);
+    }
+
     private void assertTwoPointsTransmittedToView() {
         assertTrue(viewSpy.wasPaintObjectCalled());
         assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
@@ -51,6 +59,11 @@ public class GraphicViewPresenterTestWithViewSpy {
     }
 
     public class ActivatedPaintModeContext {
+
+        private final int secondStartX = 864;
+        private final int secondStartY = 965;
+        private final int secondEndX = 755;
+        private final int secondEndY = 851;
 
         public class InvalidObjectTypeContext {
 
@@ -175,11 +188,6 @@ public class GraphicViewPresenterTestWithViewSpy {
 
         public class BuildPolyLineContext {
 
-            private final int secondStartX = 864;
-            private final int secondStartY = 965;
-            private final int secondEndX = 755;
-            private final int secondEndY = 851;
-
             @Before
             public void setUp() {
                 sut.activatePaintMode("PolyLine");
@@ -290,8 +298,102 @@ public class GraphicViewPresenterTestWithViewSpy {
             }
         }
 
-    }
+        public class LivePaintingLineContext {
+            @Before
+            public void setUp() {
+                sut.activatePaintMode("Line");
+            }
 
+            @Test
+            public void livePaintingUnfinishedLineAcceptanceTest() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstStartX + 1, firstStartY + 1);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertTrue(viewSpy.wasPaintObjectCalled());
+                assertEquals(4, viewSpy.getAllCoordinates().size());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+            }
+
+            @Test
+            public void whenMovingMouseAfterLeftClick_shouldCallPaintObject() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertTrue(viewSpy.wasPaintObjectCalled());
+            }
+
+            @Test
+            public void whenMovingMouseAfterLeftClick_shouldCallPaintObjectWithObjectType() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertEquals("Line", viewSpy.getObjectType());
+            }
+
+            @Test
+            public void whenMovingMouseAfterLeftClick_paintObjectShouldReceiveCorrectCoordinates() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertEquals(4, viewSpy.getAllCoordinates().size());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+            }
+
+            @Test
+            public void whenMovingMouseMultipleTimes_shouldOnlyAddOneNewPoint() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstStartX + 1, firstStartY + 1);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertEquals(4, viewSpy.getAllCoordinates().size());
+            }
+
+            @Test
+            public void whenMovingMouseMultipleTimes_shouldAdjustLastPoint() {
+                sut.handleLeftClick(firstStartX, firstStartY);
+                sut.handleMouseMove(firstStartX + 1, firstStartY + 1);
+                sut.handleMouseMove(firstEndX, firstEndY);
+                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+            }
+
+            @Test
+            public void whenMovingMouseBeforeLeftClick_shouldNotCallPaintObject() {
+                sut.handleMouseMove(firstStartX, firstStartY);
+                sut.handleMouseMove(secondStartX, secondStartY);
+                assertFalse(viewSpy.wasPaintObjectCalled());
+            }
+
+            public class LivePaintingCompleteLineContext {
+                @Test
+                public void whenCompletingLine_paintObjectShouldReceiveCorrectCoordinates() {
+                    transmitTwoPointsToPresenterWithMouseMove(firstStartX, firstStartY, firstEndX, firstEndY);
+                    assertTrue(viewSpy.wasPaintObjectCalled());
+                    assertEquals(4, viewSpy.getAllCoordinates().size());
+                    assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                }
+
+                @Test
+                public void afterCompletingLineAndMovingMouse_shouldNotCallPaintObjectAgain() {
+                    sut.handleLeftClick(firstStartX, firstStartY);
+                    sut.handleMouseMove(firstEndX, firstEndY);
+                    sut.handleLeftClick(firstEndX, firstEndY);
+                    sut.handleMouseMove(secondStartX, secondStartY);
+                    assertEquals(2, viewSpy.getTimesPaintObjectCalled());
+                }
+            }
+
+//            public class LivePaintingSecondLineContext {
+//                @Before
+//                public void setUp() {
+//                    transmitTwoPointsToPresenterWithMouseMove(firstStartX, firstStartY, firstEndX, firstEndY);
+//                    sut.activatePaintMode("Line");
+//                }
+//
+//                @Test
+//                public void livePaintingSecondLineAcceptanceTest() {
+//                    transmitTwoPointsToPresenterWithMouseMove(secondStartX, secondStartY, secondEndX, secondEndY);
+//                    assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+//                    assertActualPointEqualsExpected(secondEndX, secondEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+//                }
+//            }
+        }
+    }
 
 
     public class DeactivatedPaintModeContext {
@@ -311,6 +413,26 @@ public class GraphicViewPresenterTestWithViewSpy {
         public void whenRightClicking_shouldNotCallPaintObject() {
             sut.handleRightClick(firstStartX, firstStartY);
             assertFalse(viewSpy.wasPaintObjectCalled());
+        }
+
+        @Test //nachgeholter Test, war eigentlich schon erfüllt
+        public void whenMovingMouse_shouldNotCallPaintObject() {
+            sut.handleMouseMove(firstStartX, firstStartY);
+            assertFalse(viewSpy.wasPaintObjectCalled());
+        }
+
+        @Test
+        public void whenMovingMouseThenActivatingPaintModeThenCompletingLine_paintObjectShouldReceiveCorrectCoordinates() {
+            sut.handleMouseMove(324, 545);
+            sut.activatePaintMode("Line");
+            sut.handleMouseMove(854, 874);
+            sut.handleLeftClick(firstStartX, firstStartY);
+            sut.handleMouseMove(654, 342);
+            sut.handleLeftClick(firstEndX, firstEndY);
+
+            assertEquals(4, viewSpy.getAllCoordinates().size());
+            assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
+            assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
         }
     }
 
