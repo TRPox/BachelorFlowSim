@@ -1,10 +1,12 @@
 package irmb.flowsim.presentation;
 
-import java.util.List;
+import irmb.flowsim.model.geometry.Point;
 
 /**
  * Created by Sven on 09.08.2016.
  */
 public interface View {
-    void paintObject(String objectType, List<Integer> coordinates);
+    void paintLine(Point start, Point end);
+
+    void paintRectangle(Point start, Point end);
 }

@@ -1,7 +1,7 @@
 package irmb.flowsim;
 
 import irmb.flowsim.presentation.GraphicViewPresenter;
-import irmb.flowsim.view.BasicView;
+import irmb.flowsim.view.TempView;
 
 /**
  * Created by Sven on 09.08.2016.
@@ -9,7 +9,7 @@ import irmb.flowsim.view.BasicView;
 public class Main {
     public static void main(String[] args) {
         GraphicViewPresenter presenter = new GraphicViewPresenter();
-        BasicView view = new BasicView(presenter);
+        TempView view = new TempView(presenter);
         presenter.setView(view);
 //        sut.activatePaintMode();
         view.setSize(800, 600);
