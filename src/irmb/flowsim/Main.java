@@ -11,13 +11,7 @@ public class Main {
         GraphicViewPresenter presenter = new GraphicViewPresenter();
         TempView view = new TempView(presenter);
         presenter.setView(view);
-//        sut.activatePaintMode();
         view.setSize(800, 600);
         view.setVisible(true);
-//        presenter.handleLeftClick(50,50);
-//        presenter.handleLeftClick(750,650);
-
-
-
     }
 }

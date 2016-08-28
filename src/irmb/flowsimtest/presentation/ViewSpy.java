@@ -22,6 +22,7 @@ public class ViewSpy implements View {
     private int lastEndX;
     private int lastEndY;
     private List<Integer> allCoordinates = new ArrayList<>();
+    private int timesPaintRectangleCalled;
 
 
     public ViewSpy(GraphicViewPresenter presenter) {
@@ -45,6 +46,7 @@ public class ViewSpy implements View {
     @Override
     public void paintRectangle(Point start, Point end) {
         paintRectangleWasCalled = true;
+        timesPaintRectangleCalled++;
         lastStartX = start.getX();
         lastStartY = start.getY();
         lastEndX = end.getX();
@@ -81,5 +83,9 @@ public class ViewSpy implements View {
 
     public boolean wasPaintRectangleCalled() {
         return paintRectangleWasCalled;
+    }
+
+    public int getTimesPaintRectangleCalled() {
+        return timesPaintRectangleCalled;
     }
 }
