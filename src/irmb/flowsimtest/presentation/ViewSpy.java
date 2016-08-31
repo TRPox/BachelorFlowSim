@@ -1,12 +1,13 @@
 package irmb.flowsimtest.presentation;
 
+import irmb.flowsim.model.geometry.Line;
 import irmb.flowsim.model.geometry.Point;
+import irmb.flowsim.model.geometry.Rectangle;
 import irmb.flowsim.presentation.GraphicViewPresenter;
 import irmb.flowsim.presentation.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
  * Created by Sven on 09.08.2016.
@@ -30,7 +31,9 @@ public class ViewSpy implements View {
     }
 
     @Override
-    public void paintLine(Point start, Point end) {
+    public void paintLine(Line line) {
+        Point start = line.getStart();
+        Point end = line.getEnd();
         paintLineWasCalled = true;
         timesPaintLineCalled++;
         lastStartX = start.getX();
@@ -44,7 +47,9 @@ public class ViewSpy implements View {
     }
 
     @Override
-    public void paintRectangle(Point start, Point end) {
+    public void paintRectangle(Rectangle rectangle) {
+        Point start = rectangle.getFirst();
+        Point end = rectangle.getSecond();
         paintRectangleWasCalled = true;
         timesPaintRectangleCalled++;
         lastStartX = start.getX();
@@ -52,6 +57,7 @@ public class ViewSpy implements View {
         lastEndX = end.getX();
         lastEndY = end.getY();
     }
+
 
     public boolean wasPaintLineCalled() {
         return paintLineWasCalled;

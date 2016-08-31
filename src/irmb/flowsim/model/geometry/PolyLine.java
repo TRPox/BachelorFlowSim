@@ -1,13 +1,14 @@
 package irmb.flowsim.model.geometry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Sven on 27.08.2016.
  */
-public class PolyLine {
+public class PolyLine implements Shape {
 
-    private List<Point> pointList;
+    private List<Point> pointList = new ArrayList<>();
 
     public PolyLine() {
     }
@@ -26,5 +27,9 @@ public class PolyLine {
 
     public void removePoint(Point point) {
         pointList.remove(point);
+    }
+
+    public List<Point> getPointList() {
+        return pointList;
     }
 }

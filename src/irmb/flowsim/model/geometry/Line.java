@@ -3,7 +3,7 @@ package irmb.flowsim.model.geometry;
 /**
  * Created by Sven on 28.07.2016.
  */
-public class Line {
+public class Line implements Shape {
 
     private Point start;
     private Point end;

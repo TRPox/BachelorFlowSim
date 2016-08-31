@@ -2,6 +2,7 @@ package irmb.flowsimtest.presentation;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import irmb.flowsim.presentation.GraphicViewPresenter;
+import irmb.flowsim.presentation.factories.ShapeFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,7 @@ public class GraphicViewPresenterTestWithViewSpy {
 
     @Before
     public void setUp() {
-        sut = new GraphicViewPresenter();
+        sut = new GraphicViewPresenter(new ShapeFactoryImpl());
         viewSpy = new ViewSpy(sut);
         sut.setView(viewSpy);
     }

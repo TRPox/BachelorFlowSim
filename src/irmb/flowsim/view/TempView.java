@@ -1,6 +1,9 @@
 package irmb.flowsim.view;
 
+import irmb.flowsim.model.geometry.*;
+import irmb.flowsim.model.geometry.Shape;
 import irmb.flowsim.model.geometry.Point;
+import irmb.flowsim.model.geometry.Rectangle;
 import irmb.flowsim.presentation.GraphicViewPresenter;
 import irmb.flowsim.presentation.View;
 
@@ -14,7 +17,8 @@ import java.awt.event.MouseListener;
  */
 public class TempView extends JFrame implements View, MouseListener {
 
-    private final GraphicViewPresenter presenter;
+
+    private GraphicViewPresenter presenter;
     private JPanel panel;
     private JButton lineButton;
     private JButton polyLineButton;
@@ -23,9 +27,9 @@ public class TempView extends JFrame implements View, MouseListener {
     private Point start;
     private Point end;
 
-    public TempView(GraphicViewPresenter presenter) {
+    public TempView() {
         this.add(panel);
-        this.presenter = presenter;
+//        this.presenter = presenter;
         setButtonActions();
         panel.addMouseListener(this);
 //        panel.addMouseMotionListener(this);
@@ -38,15 +42,23 @@ public class TempView extends JFrame implements View, MouseListener {
 //        circleButton.addActionListener(e -> presenter.activatePaintMode("Circle"));
     }
 
+    public void setPresenter(GraphicViewPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     @Override
-    public void paintLine(Point start, Point end) {
+    public void paintLine(Line line) {
+        Point start = line.getStart();
+        Point end = line.getEnd();
         Graphics g = getGraphics();
         if (start != null && end != null)
             g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 
     @Override
-    public void paintRectangle(Point start, Point end) {
+    public void paintRectangle(Rectangle rectangle) {
+        Point start = rectangle.getFirst();
+        Point end = rectangle.getSecond();
         if (start != null && end != null) {
             Graphics g = getGraphics();
             int minX = start.getX() < end.getX() ? start.getX() : end.getX();
@@ -92,7 +104,7 @@ public class TempView extends JFrame implements View, MouseListener {
 
     public void paint(Graphics g) {
         super.paint(g);
-        if (start != null && end != null)
-            g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
+//        if (start != null && end != null)
+//            g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 }
