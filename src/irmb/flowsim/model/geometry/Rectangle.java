@@ -30,4 +30,9 @@ public class Rectangle implements Shape {
     public void setSecond(Point second) {
         this.second = second;
     }
+
+    @Override
+    public void accept(ShapeVisitor visitor) {
+        visitor.visit(this);
+    }
 }

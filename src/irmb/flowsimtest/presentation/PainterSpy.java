@@ -1,10 +1,7 @@
 package irmb.flowsimtest.presentation;
 
-import irmb.flowsim.model.geometry.Line;
-import irmb.flowsim.model.geometry.Point;
-import irmb.flowsim.model.geometry.Rectangle;
-import irmb.flowsim.presentation.GraphicViewPresenter;
-import irmb.flowsim.presentation.View;
+import irmb.flowsim.model.geometry.*;
+import irmb.flowsim.presentation.Painter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +9,7 @@ import java.util.List;
 /**
  * Created by Sven on 09.08.2016.
  */
-public class ViewSpy implements View {
+public class PainterSpy extends Painter {
 
 
     private boolean paintLineWasCalled;
@@ -26,14 +23,12 @@ public class ViewSpy implements View {
     private int timesPaintRectangleCalled;
 
 
-    public ViewSpy(GraphicViewPresenter presenter) {
+    public PainterSpy() {
 
     }
 
-    @Override
-    public void paintLine(Line line) {
-        Point start = line.getStart();
-        Point end = line.getEnd();
+
+    protected void paintLine(Point start, Point end) {
         paintLineWasCalled = true;
         timesPaintLineCalled++;
         lastStartX = start.getX();
@@ -46,10 +41,8 @@ public class ViewSpy implements View {
         allCoordinates.add(lastEndY);
     }
 
-    @Override
-    public void paintRectangle(Rectangle rectangle) {
-        Point start = rectangle.getFirst();
-        Point end = rectangle.getSecond();
+
+    protected void paintRectangle(Point start, Point end) {
         paintRectangleWasCalled = true;
         timesPaintRectangleCalled++;
         lastStartX = start.getX();
@@ -94,4 +87,5 @@ public class ViewSpy implements View {
     public int getTimesPaintRectangleCalled() {
         return timesPaintRectangleCalled;
     }
+
 }

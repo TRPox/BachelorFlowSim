@@ -1,12 +1,9 @@
-package irmb.flowsim.presentation.factories;
+package irmb.flowsim.model.geometry;
 
-import irmb.flowsim.model.geometry.Line;
-import irmb.flowsim.model.geometry.Rectangle;
-import irmb.flowsim.model.geometry.Shape;
 import irmb.flowsim.presentation.factories.ShapeFactory;
 
 /**
- * Created by Sven on 31.08.2016.
+ * Created by Sven on 02.09.2016.
  */
 public class ShapeFactoryImpl implements ShapeFactory {
     @Override
@@ -17,9 +14,8 @@ public class ShapeFactoryImpl implements ShapeFactory {
             case "Rectangle":
                 return new Rectangle();
             case "PolyLine":
-                return new Line();
-            default:
-                return null;
+                return new PolyLine();
         }
+        return null;
     }
 }

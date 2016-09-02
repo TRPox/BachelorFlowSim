@@ -31,4 +31,9 @@ public class Line implements Shape {
     public void setEnd(Point end) {
         this.end = end;
     }
+
+    @Override
+    public void accept(ShapeVisitor visitor) {
+        visitor.visit(this);
+    }
 }

@@ -4,9 +4,9 @@ import irmb.flowsim.model.geometry.*;
 import irmb.flowsim.model.geometry.Shape;
 import irmb.flowsim.model.geometry.Point;
 import irmb.flowsim.model.geometry.Rectangle;
-import irmb.flowsim.presentation.GraphicViewPresenter;
-import irmb.flowsim.presentation.View;
+import irmb.flowsim.presentation.*;
 
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -15,7 +15,7 @@ import java.awt.event.MouseListener;
 /**
  * Created by Sven on 27.08.2016.
  */
-public class TempView extends JFrame implements View, MouseListener {
+public class TempPainter extends JFrame implements MouseListener {
 
 
     private GraphicViewPresenter presenter;
@@ -27,7 +27,7 @@ public class TempView extends JFrame implements View, MouseListener {
     private Point start;
     private Point end;
 
-    public TempView() {
+    public TempPainter() {
         this.add(panel);
 //        this.presenter = presenter;
         setButtonActions();
@@ -46,19 +46,13 @@ public class TempView extends JFrame implements View, MouseListener {
         this.presenter = presenter;
     }
 
-    @Override
-    public void paintLine(Line line) {
-        Point start = line.getStart();
-        Point end = line.getEnd();
+    private void paintLine(Point start, Point end) {
         Graphics g = getGraphics();
         if (start != null && end != null)
             g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 
-    @Override
-    public void paintRectangle(Rectangle rectangle) {
-        Point start = rectangle.getFirst();
-        Point end = rectangle.getSecond();
+    private void paintRectangle(Point start, Point end) {
         if (start != null && end != null) {
             Graphics g = getGraphics();
             int minX = start.getX() < end.getX() ? start.getX() : end.getX();
@@ -107,4 +101,21 @@ public class TempView extends JFrame implements View, MouseListener {
 //        if (start != null && end != null)
 //            g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
+
+//    @Override
+//    public void visit(Line line) {
+//        paintLine(line.getStart(), line.getEnd());
+//    }
+//
+//    @Override
+//    public void visit(Rectangle rectangle) {
+//        paintRectangle(rectangle.getFirst(), rectangle.getSecond());
+//    }
+//
+//    @Override
+//    public void visit(PolyLine polyLine) {
+//        List<Point> pointList = polyLine.getAllPoints();
+//        for (int i = 0; i < pointList.size() - 1; )
+//            paintLine(pointList.get(i), pointList.get(++i));
+//    }
 }

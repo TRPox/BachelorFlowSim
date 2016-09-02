@@ -1,8 +1,10 @@
 package irmb.flowsimtest.presentation;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import irmb.flowsim.model.geometry.ShapeFactoryImpl;
 import irmb.flowsim.presentation.GraphicViewPresenter;
-import irmb.flowsim.presentation.factories.ShapeFactoryImpl;
+import irmb.flowsim.presentation.factories.ShapeBuilderFactoryImpl;
+import irmb.flowsim.presentation.factories.ShapeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 public class GraphicViewPresenterTestWithViewSpy {
 
     private GraphicViewPresenter sut;
-    private ViewSpy viewSpy;
+    private PainterSpy painterSpy;
 
     private final int firstStartX = 564;
     private final int firstStartY = 321;
@@ -30,9 +32,11 @@ public class GraphicViewPresenterTestWithViewSpy {
 
     @Before
     public void setUp() {
-        sut = new GraphicViewPresenter(new ShapeFactoryImpl());
-        viewSpy = new ViewSpy(sut);
-        sut.setView(viewSpy);
+        ShapeFactory shapeFactory = new ShapeFactoryImpl();
+        ShapeBuilderFactoryImpl shapeBuilderFactory = new ShapeBuilderFactoryImpl(shapeFactory);
+        sut = new GraphicViewPresenter(shapeBuilderFactory);
+        painterSpy = new PainterSpy();
+        sut.setPainter(painterSpy);
     }
 
     private void assertActualPointEqualsExpected(double actualX, double actualY, double expectedX, double expectedY) {
@@ -61,31 +65,31 @@ public class GraphicViewPresenterTestWithViewSpy {
             public void buildLineAcceptanceTest() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertTrue(viewSpy.wasPaintLineCalled());
-                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                assertTrue(painterSpy.wasPaintLineCalled());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getLastEndX(), painterSpy.getLastEndY());
             }
 
             @Test
             public void whenLeftClickingOnce_shouldNotCallPaintObject() {
                 sut.handleLeftClick(firstStartX, firstStartY);
 
-                assertFalse(viewSpy.wasPaintLineCalled());
+                assertFalse(painterSpy.wasPaintLineCalled());
             }
 
             @Test
             public void whenLeftClickingTwice_shouldCallPaintObject() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertTrue(viewSpy.wasPaintLineCalled());
+                assertTrue(painterSpy.wasPaintLineCalled());
             }
 
             @Test
             public void whenLeftClickingTwice_paintLineShouldReceiveCorrectCoordinates() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getLastEndX(), painterSpy.getLastEndY());
             }
 
             @Test
@@ -93,7 +97,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
                 sut.handleLeftClick(secondStartX, secondStartY);
 
-                assertEquals(1, viewSpy.getTimesPaintLineCalled());
+                assertEquals(1, painterSpy.getTimesPaintLineCalled());
             }
         }
 
@@ -109,11 +113,11 @@ public class GraphicViewPresenterTestWithViewSpy {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
                 sut.handleLeftClick(secondStartX, secondStartY);
 
-                assertEquals(2, viewSpy.getTimesPaintLineCalled());
-                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getAllCoordinates().get(0), viewSpy.getAllCoordinates().get(1));
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getAllCoordinates().get(2), viewSpy.getAllCoordinates().get(3));
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getAllCoordinates().get(4), viewSpy.getAllCoordinates().get(5));
-                assertActualPointEqualsExpected(secondStartX, secondStartY, viewSpy.getAllCoordinates().get(6), viewSpy.getAllCoordinates().get(7));
+                assertEquals(2, painterSpy.getTimesPaintLineCalled());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getAllCoordinates().get(0), painterSpy.getAllCoordinates().get(1));
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getAllCoordinates().get(2), painterSpy.getAllCoordinates().get(3));
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getAllCoordinates().get(4), painterSpy.getAllCoordinates().get(5));
+                assertActualPointEqualsExpected(secondStartX, secondStartY, painterSpy.getAllCoordinates().get(6), painterSpy.getAllCoordinates().get(7));
             }
 
 
@@ -122,7 +126,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
                 sut.handleLeftClick(secondStartX, secondStartY);
 
-                assertEquals(2, viewSpy.getTimesPaintLineCalled());
+                assertEquals(2, painterSpy.getTimesPaintLineCalled());
             }
 
         }
@@ -137,24 +141,24 @@ public class GraphicViewPresenterTestWithViewSpy {
             public void buildRectangleAcceptanceTest() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertTrue(viewSpy.wasPaintRectangleCalled());
-                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                assertTrue(painterSpy.wasPaintRectangleCalled());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getLastEndX(), painterSpy.getLastEndY());
             }
 
             @Test
             public void whenLeftClickingTwice_shouldCallPaintRectangle() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertTrue(viewSpy.wasPaintRectangleCalled());
+                assertTrue(painterSpy.wasPaintRectangleCalled());
             }
 
             @Test
             public void whenLeftClickingTwice_paintRectangleShouldReceiveCorrectCoordinates() {
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertActualPointEqualsExpected(firstStartX, firstStartY, viewSpy.getLastStartX(), viewSpy.getLastStartY());
-                assertActualPointEqualsExpected(firstEndX, firstEndY, viewSpy.getLastEndX(), viewSpy.getLastEndY());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
+                assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getLastEndX(), painterSpy.getLastEndY());
             }
         }
 
@@ -166,7 +170,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 sut.activatePaintMode("Line");
                 sut.handleLeftClick(firstEndX, firstEndY);
 
-                assertFalse(viewSpy.wasPaintLineCalled());
+                assertFalse(painterSpy.wasPaintLineCalled());
             }
         }
 
@@ -178,7 +182,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 leftClickThenRightClick();
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertFalse(viewSpy.wasPaintLineCalled());
+                assertFalse(painterSpy.wasPaintLineCalled());
             }
 
             @Test
@@ -187,7 +191,7 @@ public class GraphicViewPresenterTestWithViewSpy {
                 leftClickThenRightClick();
                 transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
 
-                assertFalse(viewSpy.wasPaintLineCalled());
+                assertFalse(painterSpy.wasPaintLineCalled());
             }
 
             private void leftClickThenRightClick() {
