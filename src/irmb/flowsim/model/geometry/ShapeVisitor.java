@@ -9,4 +9,6 @@ public interface ShapeVisitor {
     void visit(Rectangle rectangle);
 
     void visit(PolyLine polyLine);
+
+    void visit(Circle circle);
 }

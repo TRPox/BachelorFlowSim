@@ -29,9 +29,11 @@ public class GraphicViewPresenter {
 
     private void paintShapes(int x, int y) {
         shapeBuilder.addPoint(new Point(x, y));
-        if (timesCalled >= 2)
+        if (timesCalled >= 2) {
             painter.paintObject(shapeBuilder.getShape());
-
+            if (shapeBuilder.isObjectFinished())
+                deactivatePaintMode();
+        }
     }
 
     public void handleRightClick(int x, int y) {
@@ -50,7 +52,7 @@ public class GraphicViewPresenter {
     }
 
     public void deactivatePaintMode() {
-
+        paintEnabled = false;
     }
 
 

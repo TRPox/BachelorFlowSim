@@ -24,14 +24,25 @@ public abstract class Painter implements ShapeVisitor {
 
     @Override
     public void visit(PolyLine polyLine) {
-        List<Point> pointList = polyLine.getAllPoints();
-        int i = 0;
-        while (pointList.size() - 1 > i)
-            paintLine(pointList.get(i), pointList.get(++i));
-
+        List<Point> pointList = polyLine.getPointList();
+        if (polyLine.getPointList().size() < 2)
+            return;
+        else {
+            Point secondLast = pointList.get(pointList.size() - 2);
+            Point last = pointList.get(pointList.size() - 1);
+            paintLine(secondLast, last);
+        }
     }
+
+    @Override
+    public void visit(Circle circle) {
+        paintCircle(circle.getCenter(), circle.getRadius());
+    }
+
 
     protected abstract void paintLine(Point start, Point end);
 
     protected abstract void paintRectangle(Point start, Point end);
+
+    protected abstract void paintCircle(Point center, double radius);
 }

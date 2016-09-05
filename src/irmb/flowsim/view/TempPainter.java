@@ -23,6 +23,7 @@ public class TempPainter extends JFrame implements MouseListener {
     private JButton lineButton;
     private JButton polyLineButton;
     private JButton rectangleButton;
+    private JButton circleButton;
 
     private Point start;
     private Point end;
@@ -39,29 +40,11 @@ public class TempPainter extends JFrame implements MouseListener {
         lineButton.addActionListener(e -> presenter.activatePaintMode("Line"));
         polyLineButton.addActionListener(e -> presenter.activatePaintMode("PolyLine"));
         rectangleButton.addActionListener(e -> presenter.activatePaintMode("Rectangle"));
-//        circleButton.addActionListener(e -> presenter.activatePaintMode("Circle"));
+        circleButton.addActionListener(e -> presenter.activatePaintMode("Circle"));
     }
 
     public void setPresenter(GraphicViewPresenter presenter) {
         this.presenter = presenter;
-    }
-
-    private void paintLine(Point start, Point end) {
-        Graphics g = getGraphics();
-        if (start != null && end != null)
-            g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
-    }
-
-    private void paintRectangle(Point start, Point end) {
-        if (start != null && end != null) {
-            Graphics g = getGraphics();
-            int minX = start.getX() < end.getX() ? start.getX() : end.getX();
-            int minY = start.getY() < end.getY() ? start.getY() : end.getY();
-            int width = Math.abs(start.getX() - end.getX());
-            int height = Math.abs(start.getY() - end.getY());
-
-            g.drawRect(minX, minY, width, height);
-        }
     }
 
     @Override
@@ -95,27 +78,4 @@ public class TempPainter extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
-    public void paint(Graphics g) {
-        super.paint(g);
-//        if (start != null && end != null)
-//            g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
-    }
-
-//    @Override
-//    public void visit(Line line) {
-//        paintLine(line.getStart(), line.getEnd());
-//    }
-//
-//    @Override
-//    public void visit(Rectangle rectangle) {
-//        paintRectangle(rectangle.getFirst(), rectangle.getSecond());
-//    }
-//
-//    @Override
-//    public void visit(PolyLine polyLine) {
-//        List<Point> pointList = polyLine.getAllPoints();
-//        for (int i = 0; i < pointList.size() - 1; )
-//            paintLine(pointList.get(i), pointList.get(++i));
-//    }
 }

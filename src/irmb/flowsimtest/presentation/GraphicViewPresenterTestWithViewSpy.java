@@ -1,7 +1,7 @@
 package irmb.flowsimtest.presentation;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import irmb.flowsim.model.geometry.ShapeFactoryImpl;
+import irmb.flowsim.presentation.factories.ShapeFactoryImpl;
 import irmb.flowsim.presentation.GraphicViewPresenter;
 import irmb.flowsim.presentation.factories.ShapeBuilderFactoryImpl;
 import irmb.flowsim.presentation.factories.ShapeFactory;
@@ -129,6 +129,15 @@ public class GraphicViewPresenterTestWithViewSpy {
                 assertEquals(2, painterSpy.getTimesPaintLineCalled());
             }
 
+            @Test
+            public void whenLeftClickingFourTimes_shouldCallPaintLineThreeTimes() {
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+                sut.handleLeftClick(secondStartX, secondStartY);
+                sut.handleLeftClick(0, 0);
+
+                assertEquals(3, painterSpy.getTimesPaintLineCalled());
+            }
+
         }
 
         public class BuildRectangleContext {
@@ -159,6 +168,24 @@ public class GraphicViewPresenterTestWithViewSpy {
 
                 assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
                 assertActualPointEqualsExpected(firstEndX, firstEndY, painterSpy.getLastEndX(), painterSpy.getLastEndY());
+            }
+        }
+
+        public class BuildCircleContext {
+
+            private final double delta = 0.000001;
+
+            @Test
+            public void buildCircleAcceptanceTest() {
+                sut.activatePaintMode("Circle");
+                transmitTwoPointsToPresenter(firstStartX, firstStartY, firstEndX, firstEndY);
+
+                assertTrue(painterSpy.wasPaintCircleCalled());
+                assertActualPointEqualsExpected(firstStartX, firstStartY, painterSpy.getLastStartX(), painterSpy.getLastStartY());
+                int deltaX = Math.abs(firstStartX - firstEndX);
+                int deltaY = Math.abs(firstStartY - firstEndY);
+                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                assertEquals(distance, painterSpy.getReceivedRadius(), delta);
             }
         }
 

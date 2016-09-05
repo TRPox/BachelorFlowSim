@@ -2,6 +2,7 @@ package irmb.flowsimtest.presentation.factories;
 
 import irmb.flowsim.model.geometry.*;
 import irmb.flowsim.presentation.factories.ShapeFactory;
+import irmb.flowsim.presentation.factories.ShapeFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,6 +36,11 @@ public class ShapeFactoryImplTest {
     @Test
     public void testMakePolyLine() {
         assertThat(shapeFactory.makeShape("PolyLine"), is(instanceOf(PolyLine.class)));
+    }
+
+    @Test
+    public void testMakeCircle() {
+        assertThat(shapeFactory.makeShape("Circle"), is(instanceOf(Circle.class)));
     }
 
     @Test

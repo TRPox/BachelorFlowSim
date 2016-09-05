@@ -18,7 +18,7 @@ public class PolyLine implements Shape {
         pointList.remove(point);
     }
 
-    public List<Point> getAllPoints() {
+    public List<Point> getPointList() {
         return pointList;
     }
 

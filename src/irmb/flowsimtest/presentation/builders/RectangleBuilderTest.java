@@ -4,11 +4,13 @@ import irmb.flowsim.model.geometry.Point;
 import irmb.flowsim.model.geometry.Rectangle;
 import irmb.flowsim.presentation.builders.RectangleBuilder;
 import irmb.flowsim.presentation.factories.ShapeFactory;
-import irmb.flowsimtest.presentation.factories.ShapeFactoryMock;
+import irmb.flowsimtest.presentation.factories.ShapeFactoryStub;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Sven on 02.09.2016.
@@ -21,7 +23,7 @@ public class RectangleBuilderTest extends Rectangle {
 
     @Before
     public void setUp() throws Exception {
-        ShapeFactory factory = new ShapeFactoryMock();
+        ShapeFactory factory = new ShapeFactoryStub();
         rectangleBuilder = new RectangleBuilder(factory);
         first = new Point(5, 3);
         second = new Point(7, 8);
@@ -58,4 +60,16 @@ public class RectangleBuilderTest extends Rectangle {
         assertEquals(second, rectangle.getSecond());
     }
 
+    @Test
+    public void whenAddingOnePoint_isObjectFinishedShouldBeFalse() {
+        rectangleBuilder.addPoint(first);
+        assertFalse(rectangleBuilder.isObjectFinished());
+    }
+
+    @Test
+    public void whenAddingTwoPoints_isObjectFinishedShouldBeTrue() {
+        rectangleBuilder.addPoint(first);
+        rectangleBuilder.addPoint(second);
+        assertTrue(rectangleBuilder.isObjectFinished());
+    }
 }

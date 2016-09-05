@@ -10,6 +10,7 @@ import irmb.flowsim.presentation.factories.ShapeFactory;
 public abstract class ShapeBuilder {
 
     private final ShapeFactory factory;
+    protected boolean objectFinished;
 
     public ShapeBuilder(ShapeFactory factory) {
         this.factory = factory;
@@ -18,5 +19,9 @@ public abstract class ShapeBuilder {
     public abstract void addPoint(Point point);
 
     public abstract Shape getShape();
+
+    public boolean isObjectFinished() {
+        return objectFinished;
+    }
 }
 

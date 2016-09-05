@@ -15,7 +15,9 @@ public class PainterMock extends Painter {
     private boolean wasPaintLineCalled;
     private boolean wasPaintRectangleCalled;
     private int timesPaintLineCalled;
-    private List<Point> allCoordinates = new ArrayList<>();
+    private List<Point> paintedPoints = new ArrayList<>();
+    private boolean paintCircleWasCalled;
+    private double radius;
 
 
     @Override
@@ -24,8 +26,8 @@ public class PainterMock extends Painter {
         this.end = end;
         wasPaintLineCalled = true;
         timesPaintLineCalled++;
-        allCoordinates.add(start);
-        allCoordinates.add(end);
+        paintedPoints.add(start);
+        paintedPoints.add(end);
     }
 
     @Override
@@ -33,6 +35,13 @@ public class PainterMock extends Painter {
         this.start = start;
         this.end = end;
         wasPaintRectangleCalled = true;
+    }
+
+    @Override
+    protected void paintCircle(Point center, double radius) {
+        paintCircleWasCalled = true;
+        this.start = center;
+        this.radius = radius;
     }
 
     public Point getStart() {
@@ -55,7 +64,15 @@ public class PainterMock extends Painter {
         return timesPaintLineCalled;
     }
 
-    public List<Point> getAllCoordinates() {
-        return allCoordinates;
+    public List<Point> getPaintedPoints() {
+        return paintedPoints;
+    }
+
+    public boolean getWasPaintCircleCalled() {
+        return paintCircleWasCalled;
+    }
+
+    public double getReceivedRadius() {
+        return radius;
     }
 }

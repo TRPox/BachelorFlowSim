@@ -22,8 +22,10 @@ public class LineBuilder extends ShapeBuilder {
     public void addPoint(Point point) {
         if (pointsAdded == 0)
             line.setStart(point);
-        else if (pointsAdded == 1)
+        else if (pointsAdded == 1) {
             line.setEnd(point);
+            objectFinished = true;
+        }
         pointsAdded++;
     }
 

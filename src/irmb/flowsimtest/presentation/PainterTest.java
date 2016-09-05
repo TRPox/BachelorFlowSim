@@ -1,9 +1,6 @@
 package irmb.flowsimtest.presentation;
 
-import irmb.flowsim.model.geometry.Line;
-import irmb.flowsim.model.geometry.Point;
-import irmb.flowsim.model.geometry.PolyLine;
-import irmb.flowsim.model.geometry.Rectangle;
+import irmb.flowsim.model.geometry.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,15 +13,16 @@ import static org.junit.Assert.assertTrue;
  */
 public class PainterTest {
 
+    private final double delta = 0.000001;
     private PainterMock painter;
-    private Point start;
+    private Point first;
     private Point end;
     private Point second;
 
     @Before
     public void setUp() {
         painter = new PainterMock();
-        start = new Point(5, 9);
+        first = new Point(5, 9);
         second = new Point(8, 10);
         end = new Point(3, 4);
     }
@@ -39,11 +37,11 @@ public class PainterTest {
     @Test
     public void whenReceivingLine_shouldCallPaintLineWithCorrectCoordinates() {
         Line line = new Line();
-        line.setStart(start);
+        line.setStart(first);
         line.setEnd(end);
 
         painter.paintObject(line);
-        assertEquals(start, painter.getStart());
+        assertEquals(first, painter.getStart());
         assertEquals(end, painter.getEnd());
     }
 
@@ -58,11 +56,11 @@ public class PainterTest {
     @Test
     public void whenReceivingRectangle_shouldCallPaintRectangleWithCorrectCoordinates() {
         Rectangle rectangle = new Rectangle();
-        rectangle.setFirst(start);
+        rectangle.setFirst(first);
         rectangle.setSecond(end);
 
         painter.paintObject(rectangle);
-        assertEquals(start, painter.getStart());
+        assertEquals(first, painter.getStart());
         assertEquals(end, painter.getEnd());
     }
 
@@ -79,7 +77,7 @@ public class PainterTest {
     }
 
     @Test
-    public void whenReceivingPolyLineWithTwoPoints_shouldCallPaintLineOnce() {
+    public void whenReceivingPolyLineWithTwoPoints_shouldCallPaintLine() {
         PolyLine polyLine = new PolyLine();
         polyLine.addPoint(new Point(0, 0));
         polyLine.addPoint(new Point(0, 0));
@@ -91,39 +89,43 @@ public class PainterTest {
     @Test
     public void whenReceivingPolyLineWithTwoPoints_shouldCallPaintLineWithCorrectCoordinates() {
         PolyLine polyLine = new PolyLine();
-        polyLine.addPoint(start);
+        polyLine.addPoint(first);
         polyLine.addPoint(end);
 
         painter.paintObject(polyLine);
-        assertEquals(start, painter.getStart());
+        assertEquals(first, painter.getStart());
         assertEquals(end, painter.getEnd());
     }
 
     @Test
-    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineTwice() {
-        Point second = new Point(0, 0);
+    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineWithLastTwoPoints() {
         PolyLine polyLine = new PolyLine();
-        polyLine.addPoint(start);
+        polyLine.addPoint(first);
         polyLine.addPoint(second);
         polyLine.addPoint(end);
 
         painter.paintObject(polyLine);
-        assertEquals(2, painter.getTimesPaintLineCalled());
+        assertEquals(second, painter.getPaintedPoints().get(0));
+        assertEquals(end, painter.getPaintedPoints().get(1));
     }
 
     @Test
-    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineWithCorrectCoordinates() {
-        PolyLine polyLine = new PolyLine();
-        polyLine.addPoint(start);
-        polyLine.addPoint(second);
-        polyLine.addPoint(end);
+    public void whenReceivingCircle_shouldCallPaintCircle() {
+        Circle circle = new Circle();
 
-        painter.paintObject(polyLine);
-        assertEquals(start, painter.getAllCoordinates().get(0));
-        assertEquals(second, painter.getAllCoordinates().get(1));
-        assertEquals(second, painter.getAllCoordinates().get(2));
-        assertEquals(end, painter.getAllCoordinates().get(3));
+        painter.paintObject(circle);
+        assertTrue(painter.getWasPaintCircleCalled());
+    }
 
+    @Test
+    public void whenReceivingCircle_shouldCallPaintCircleWithCorrectCenterAndRadius() {
+        Circle circle = new Circle();
+        circle.setCenter(first);
+        circle.setRadius(first.distanceTo(second));
+
+        painter.paintObject(circle);
+        assertEquals(first, painter.getStart());
+        assertEquals(first.distanceTo(second), painter.getReceivedRadius(), delta);
     }
 
 }

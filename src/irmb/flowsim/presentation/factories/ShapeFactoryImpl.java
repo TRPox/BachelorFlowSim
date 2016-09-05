@@ -1,5 +1,6 @@
-package irmb.flowsim.model.geometry;
+package irmb.flowsim.presentation.factories;
 
+import irmb.flowsim.model.geometry.*;
 import irmb.flowsim.presentation.factories.ShapeFactory;
 
 /**
@@ -13,6 +14,8 @@ public class ShapeFactoryImpl implements ShapeFactory {
                 return new Line();
             case "Rectangle":
                 return new Rectangle();
+            case "Circle":
+                return new Circle();
             case "PolyLine":
                 return new PolyLine();
         }

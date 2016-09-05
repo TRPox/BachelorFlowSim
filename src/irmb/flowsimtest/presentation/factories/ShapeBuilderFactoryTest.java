@@ -1,9 +1,7 @@
 package irmb.flowsimtest.presentation.factories;
 
-import irmb.flowsim.presentation.builders.LineBuilder;
-import irmb.flowsim.presentation.builders.PolyLineBuilder;
-import irmb.flowsim.presentation.builders.RectangleBuilder;
-import irmb.flowsim.presentation.builders.ShapeBuilder;
+import irmb.flowsim.presentation.factories.ShapeFactoryImpl;
+import irmb.flowsim.presentation.builders.*;
 import irmb.flowsim.presentation.factories.ShapeBuilderFactory;
 import irmb.flowsim.presentation.factories.ShapeBuilderFactoryImpl;
 import org.junit.Before;
@@ -23,7 +21,7 @@ public class ShapeBuilderFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        shapeBuilderFactory = new ShapeBuilderFactoryImpl(null);
+        shapeBuilderFactory = new ShapeBuilderFactoryImpl(new ShapeFactoryImpl());
     }
 
     @Test
@@ -42,5 +40,11 @@ public class ShapeBuilderFactoryTest {
     public void testMakePolyLineBuilder() {
         shapeBuilder = shapeBuilderFactory.makeShapeBuilder("PolyLine");
         assertThat(shapeBuilder, is(instanceOf(PolyLineBuilder.class)));
+    }
+
+    @Test
+    public void testMakeCircleBuilder() {
+        shapeBuilder = shapeBuilderFactory.makeShapeBuilder("Circle");
+        assertThat(shapeBuilder, is(instanceOf(CircleBuilder.class)));
     }
 }

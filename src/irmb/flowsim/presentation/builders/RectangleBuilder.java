@@ -22,8 +22,10 @@ public class RectangleBuilder extends ShapeBuilder {
     public void addPoint(Point point) {
         if (pointsAdded == 0)
             rectangle.setFirst(point);
-        else if (pointsAdded == 1)
+        else if (pointsAdded == 1) {
             rectangle.setSecond(point);
+            objectFinished = true;
+        }
         pointsAdded++;
     }
 

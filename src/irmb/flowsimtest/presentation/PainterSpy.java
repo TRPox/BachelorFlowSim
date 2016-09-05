@@ -21,6 +21,8 @@ public class PainterSpy extends Painter {
     private int lastEndY;
     private List<Integer> allCoordinates = new ArrayList<>();
     private int timesPaintRectangleCalled;
+    private boolean paintCircleWasCalled;
+    private double receivedRadius;
 
 
     public PainterSpy() {
@@ -49,6 +51,14 @@ public class PainterSpy extends Painter {
         lastStartY = start.getY();
         lastEndX = end.getX();
         lastEndY = end.getY();
+    }
+
+    @Override
+    protected void paintCircle(Point center, double radius) {
+        paintCircleWasCalled = true;
+        lastStartX = center.getX();
+        lastStartY = center.getY();
+        this.receivedRadius = radius;
     }
 
 
@@ -88,4 +98,11 @@ public class PainterSpy extends Painter {
         return timesPaintRectangleCalled;
     }
 
+    public boolean wasPaintCircleCalled() {
+        return paintCircleWasCalled;
+    }
+
+    public double getReceivedRadius() {
+        return receivedRadius;
+    }
 }

@@ -31,4 +31,10 @@ public class Point {
     public String toString() {
         return x + ", " + y;
     }
+
+    public double distanceTo(Point point) {
+        int deltaX = Math.abs(getX() - point.getX());
+        int deltaY = Math.abs(getY() - point.getY());
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
 }
