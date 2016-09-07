@@ -8,10 +8,6 @@ import java.util.List;
  * Created by Sven on 09.08.2016.
  */
 public abstract class Painter implements ShapeVisitor {
-    public void paintObject(Shape shape) {
-        shape.accept(this);
-    }
-
     @Override
     public void visit(Line line) {
         paintLine(line.getStart(), line.getEnd());

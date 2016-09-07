@@ -12,18 +12,15 @@ import java.util.List;
 public class PainterSpy extends Painter {
 
 
+    private int timesPaintLineCalled;
     private boolean paintLineWasCalled;
     private boolean paintRectangleWasCalled;
-    private int timesPaintLineCalled;
-    private int lastStartX;
-    private int lastStartY;
-    private int lastEndX;
-    private int lastEndY;
-    private List<Integer> allCoordinates = new ArrayList<>();
-    private int timesPaintRectangleCalled;
     private boolean paintCircleWasCalled;
-    private double receivedRadius;
 
+    private double receivedRadius;
+    private Point firstReceived;
+    private Point secondReceived;
+    private List<Point> pointList = new ArrayList<>();
 
     public PainterSpy() {
 
@@ -33,32 +30,24 @@ public class PainterSpy extends Painter {
     protected void paintLine(Point start, Point end) {
         paintLineWasCalled = true;
         timesPaintLineCalled++;
-        lastStartX = start.getX();
-        lastStartY = start.getY();
-        lastEndX = end.getX();
-        lastEndY = end.getY();
-        allCoordinates.add(lastStartX);
-        allCoordinates.add(lastStartY);
-        allCoordinates.add(lastEndX);
-        allCoordinates.add(lastEndY);
+        firstReceived = start;
+        secondReceived = end;
+        pointList.add(firstReceived);
+        pointList.add(secondReceived);
     }
 
 
     protected void paintRectangle(Point start, Point end) {
         paintRectangleWasCalled = true;
-        timesPaintRectangleCalled++;
-        lastStartX = start.getX();
-        lastStartY = start.getY();
-        lastEndX = end.getX();
-        lastEndY = end.getY();
+        firstReceived = start;
+        secondReceived = end;
     }
 
     @Override
     protected void paintCircle(Point center, double radius) {
         paintCircleWasCalled = true;
-        lastStartX = center.getX();
-        lastStartY = center.getY();
         this.receivedRadius = radius;
+        firstReceived = center;
     }
 
 
@@ -66,36 +55,24 @@ public class PainterSpy extends Painter {
         return paintLineWasCalled;
     }
 
-    public int getLastStartX() {
-        return lastStartX;
+    public Point getFirstReceived() {
+        return firstReceived;
     }
 
-    public int getLastStartY() {
-        return lastStartY;
-    }
-
-    public int getLastEndX() {
-        return lastEndX;
-    }
-
-    public int getLastEndY() {
-        return lastEndY;
+    public Point getSecondReceived() {
+        return secondReceived;
     }
 
     public int getTimesPaintLineCalled() {
         return timesPaintLineCalled;
     }
 
-    public List<Integer> getAllCoordinates() {
-        return allCoordinates;
+    public List<Point> getReceivedPointList() {
+        return pointList;
     }
 
     public boolean wasPaintRectangleCalled() {
         return paintRectangleWasCalled;
-    }
-
-    public int getTimesPaintRectangleCalled() {
-        return timesPaintRectangleCalled;
     }
 
     public boolean wasPaintCircleCalled() {

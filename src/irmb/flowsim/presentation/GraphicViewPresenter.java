@@ -30,7 +30,7 @@ public class GraphicViewPresenter {
     private void paintShapes(int x, int y) {
         shapeBuilder.addPoint(new Point(x, y));
         if (timesCalled >= 2) {
-            painter.paintObject(shapeBuilder.getShape());
+            shapeBuilder.getShape().accept(painter);
             if (shapeBuilder.isObjectFinished())
                 deactivatePaintMode();
         }

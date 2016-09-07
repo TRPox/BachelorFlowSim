@@ -14,14 +14,14 @@ import static org.junit.Assert.assertTrue;
 public class PainterTest {
 
     private final double delta = 0.000001;
-    private PainterMock painter;
+    private PainterSpy painter;
     private Point first;
     private Point end;
     private Point second;
 
     @Before
     public void setUp() {
-        painter = new PainterMock();
+        painter = new PainterSpy();
         first = new Point(5, 9);
         second = new Point(8, 10);
         end = new Point(3, 4);
@@ -30,8 +30,8 @@ public class PainterTest {
     @Test
     public void whenReceivingLine_shouldCallPaintLine() {
         Line line = new Line();
-        painter.paintObject(line);
-        assertTrue(painter.getWasPaintLineCalled());
+        painter.visit(line);
+        assertTrue(painter.wasPaintLineCalled());
     }
 
     @Test
@@ -40,17 +40,17 @@ public class PainterTest {
         line.setStart(first);
         line.setEnd(end);
 
-        painter.paintObject(line);
-        assertEquals(first, painter.getStart());
-        assertEquals(end, painter.getEnd());
+        painter.visit(line);
+        assertEquals(first, painter.getFirstReceived());
+        assertEquals(end, painter.getSecondReceived());
     }
 
     @Test
     public void whenReceivingRectangle_shouldCallPaintRectangle() {
         Rectangle rectangle = new Rectangle();
 
-        painter.paintObject(rectangle);
-        assertTrue(painter.getWasPaintRectangleCalled());
+        painter.visit(rectangle);
+        assertTrue(painter.wasPaintRectangleCalled());
     }
 
     @Test
@@ -59,21 +59,21 @@ public class PainterTest {
         rectangle.setFirst(first);
         rectangle.setSecond(end);
 
-        painter.paintObject(rectangle);
-        assertEquals(first, painter.getStart());
-        assertEquals(end, painter.getEnd());
+        painter.visit(rectangle);
+        assertEquals(first, painter.getFirstReceived());
+        assertEquals(end, painter.getSecondReceived());
     }
 
     @Test
     public void whenReceivingPolyLineWithLessThanTwoPoints_shouldNotCallPaintLine() {
         PolyLine polyLine = new PolyLine();
 
-        painter.paintObject(polyLine);
-        assertFalse(painter.getWasPaintLineCalled());
+        painter.visit(polyLine);
+        assertFalse(painter.wasPaintLineCalled());
 
         polyLine.addPoint(new Point(0, 0));
-        painter.paintObject(polyLine);
-        assertFalse(painter.getWasPaintLineCalled());
+        painter.visit(polyLine);
+        assertFalse(painter.wasPaintLineCalled());
     }
 
     @Test
@@ -82,8 +82,8 @@ public class PainterTest {
         polyLine.addPoint(new Point(0, 0));
         polyLine.addPoint(new Point(0, 0));
 
-        painter.paintObject(polyLine);
-        assertTrue(painter.getWasPaintLineCalled());
+        painter.visit(polyLine);
+        assertTrue(painter.wasPaintLineCalled());
     }
 
     @Test
@@ -92,9 +92,9 @@ public class PainterTest {
         polyLine.addPoint(first);
         polyLine.addPoint(end);
 
-        painter.paintObject(polyLine);
-        assertEquals(first, painter.getStart());
-        assertEquals(end, painter.getEnd());
+        painter.visit(polyLine);
+        assertEquals(first, painter.getFirstReceived());
+        assertEquals(end, painter.getSecondReceived());
     }
 
     @Test
@@ -104,17 +104,17 @@ public class PainterTest {
         polyLine.addPoint(second);
         polyLine.addPoint(end);
 
-        painter.paintObject(polyLine);
-        assertEquals(second, painter.getPaintedPoints().get(0));
-        assertEquals(end, painter.getPaintedPoints().get(1));
+        painter.visit(polyLine);
+        assertEquals(second, painter.getReceivedPointList().get(0));
+        assertEquals(end, painter.getReceivedPointList().get(1));
     }
 
     @Test
     public void whenReceivingCircle_shouldCallPaintCircle() {
         Circle circle = new Circle();
 
-        painter.paintObject(circle);
-        assertTrue(painter.getWasPaintCircleCalled());
+        painter.visit(circle);
+        assertTrue(painter.wasPaintCircleCalled());
     }
 
     @Test
@@ -123,8 +123,8 @@ public class PainterTest {
         circle.setCenter(first);
         circle.setRadius(first.distanceTo(second));
 
-        painter.paintObject(circle);
-        assertEquals(first, painter.getStart());
+        painter.visit(circle);
+        assertEquals(first, painter.getFirstReceived());
         assertEquals(first.distanceTo(second), painter.getReceivedRadius(), delta);
     }
 

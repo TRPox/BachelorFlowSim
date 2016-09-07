@@ -36,24 +36,22 @@ public class CircleBuilderTest extends Circle {
 
     public class OnePointAddedContext {
 
-        private Point start;
+        private Point first;
 
         @Before
         public void setUp() {
-            start = new Point(5, 3);
-            builder.addPoint(start);
+            first = new Point(5, 3);
+            builder.addPoint(first);
         }
 
         private double getExpectedRadius() {
-            int deltaX = Math.abs(start.getX() - second.getX());
-            int deltaY = Math.abs(start.getY() - second.getY());
-            return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            return first.distanceTo(second);
         }
 
         @Test
         public void centerShouldEqualAddedPoint() {
             CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
-            assertEquals(start, circle.getCenter());
+            assertEquals(first, circle.getCenter());
         }
 
         @Test
@@ -62,7 +60,7 @@ public class CircleBuilderTest extends Circle {
 
             CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
             double expectedRadius = getExpectedRadius();
-            assertEquals(start, circle.getCenter());
+            assertEquals(first, circle.getCenter());
             assertEquals(expectedRadius, circle.getRadius(), delta);
         }
 

@@ -23,17 +23,10 @@ public class CircleBuilder extends ShapeBuilder {
         if (pointsAdded == 0)
             circle.setCenter(point);
         else if (pointsAdded == 1) {
-            double radius = getDistanceToCenter(point);
+            double radius = circle.getCenter().distanceTo(point);
             circle.setRadius(radius);
         }
         pointsAdded++;
-    }
-
-    private double getDistanceToCenter(Point point) {
-        Point center = circle.getCenter();
-        int deltaX = Math.abs(center.getX() - point.getX());
-        int deltaY = Math.abs(center.getY() - point.getY());
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
     @Override
