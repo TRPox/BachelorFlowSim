@@ -30,6 +30,16 @@ public class RectangleBuilder extends ShapeBuilder {
     }
 
     @Override
+    public void setLastPoint(Point point) {
+        if (pointsAdded == 0)
+            addPoint(point);
+        else if (pointsAdded == 1)
+            rectangle.setFirst(point);
+        else
+            rectangle.setSecond(point);
+    }
+
+    @Override
     public Shape getShape() {
         return rectangle;
     }

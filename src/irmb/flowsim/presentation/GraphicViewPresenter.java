@@ -15,6 +15,7 @@ public class GraphicViewPresenter {
     private boolean paintEnabled;
     private ShapeBuilderFactory shapeBuilderFactory;
     private ShapeBuilder shapeBuilder;
+    private boolean mouseMoved;
 
     public GraphicViewPresenter(ShapeBuilderFactory shapeBuilderFactory) {
         this.shapeBuilderFactory = shapeBuilderFactory;
@@ -28,12 +29,17 @@ public class GraphicViewPresenter {
     }
 
     private void paintShapes(int x, int y) {
-        shapeBuilder.addPoint(new Point(x, y));
+        shapeBuilder.addPoint(makePoint(x, y));
         if (timesCalled >= 2) {
+            shapeBuilder.setLastPoint(makePoint(x, y));
             shapeBuilder.getShape().accept(painter);
             if (shapeBuilder.isObjectFinished())
                 deactivatePaintMode();
         }
+    }
+
+    private Point makePoint(int x, int y) {
+        return new Point(x, y);
     }
 
     public void handleRightClick(int x, int y) {
@@ -56,4 +62,14 @@ public class GraphicViewPresenter {
     }
 
 
+    public void handleMouseMove(int x, int y) {
+        if (!mouseMoved) {
+            shapeBuilder.addPoint(makePoint(x, y));
+            mouseMoved = true;
+        } else
+            shapeBuilder.setLastPoint(makePoint(x, y));
+        if (paintEnabled)
+            if (timesCalled > 0)
+                shapeBuilder.getShape().accept(painter);
+    }
 }

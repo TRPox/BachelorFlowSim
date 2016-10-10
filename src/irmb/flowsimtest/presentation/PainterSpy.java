@@ -21,6 +21,8 @@ public class PainterSpy extends Painter {
     private Point firstReceived;
     private Point secondReceived;
     private List<Point> pointList = new ArrayList<>();
+    private int timesPaintRectangleCalled;
+    private int timesPaintCircleCalled;
 
     public PainterSpy() {
 
@@ -39,6 +41,7 @@ public class PainterSpy extends Painter {
 
     protected void paintRectangle(Point start, Point end) {
         paintRectangleWasCalled = true;
+        timesPaintRectangleCalled++;
         firstReceived = start;
         secondReceived = end;
     }
@@ -46,6 +49,7 @@ public class PainterSpy extends Painter {
     @Override
     protected void paintCircle(Point center, double radius) {
         paintCircleWasCalled = true;
+        timesPaintCircleCalled++;
         this.receivedRadius = radius;
         firstReceived = center;
     }
@@ -81,5 +85,13 @@ public class PainterSpy extends Painter {
 
     public double getReceivedRadius() {
         return receivedRadius;
+    }
+
+    public int getTimesPaintRectangleCalled() {
+        return timesPaintRectangleCalled;
+    }
+
+    public int getTimesPaintCircleCalled() {
+        return timesPaintCircleCalled;
     }
 }

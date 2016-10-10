@@ -30,6 +30,16 @@ public class CircleBuilder extends ShapeBuilder {
     }
 
     @Override
+    public void setLastPoint(Point point) {
+        if (pointsAdded == 0)
+            addPoint(point);
+        else if (pointsAdded == 1)
+            circle.setCenter(point);
+        else
+            circle.setRadius(circle.getCenter().distanceTo(point));
+    }
+
+    @Override
     public Shape getShape() {
         return circle;
     }

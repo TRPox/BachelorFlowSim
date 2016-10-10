@@ -72,4 +72,41 @@ public class LineBuilderTest extends Line {
         builder.addPoint(end);
         assertTrue(builder.isObjectFinished());
     }
+
+    @Test
+    public void whenSettingLastPointWithoutAddingPoint_shouldAddNewPoint() {
+        builder.setLastPoint(start);
+
+        LineBuilderTest line = (LineBuilderTest) builder.getShape();
+        assertEquals(start, line.getStart());
+    }
+
+    @Test
+    public void whenSettingLastPointAfterAddingTwoPoints_shouldAdjustEnd() {
+        builder.addPoint(start);
+        builder.addPoint(end);
+        builder.setLastPoint(start);
+
+        LineBuilderTest line = (LineBuilderTest) builder.getShape();
+        assertEquals(start, line.getEnd());
+    }
+
+    @Test
+    public void whenSettingLastPointAfterAddingOnePoint_shouldAdjustStart() {
+        builder.addPoint(start);
+        builder.setLastPoint(end);
+
+        LineBuilderTest line = (LineBuilderTest) builder.getShape();
+        assertEquals(end, line.getStart());
+    }
+
+    @Test
+    public void whenSettingLastPointWithoutAddingPointThenAddingPoint_shouldAddEnd() {
+        builder.setLastPoint(start);
+        builder.addPoint(end);
+
+        LineBuilderTest line = (LineBuilderTest) builder.getShape();
+        assertEquals(start, line.getStart());
+        assertEquals(end, line.getEnd());
+    }
 }

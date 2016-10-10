@@ -5,6 +5,8 @@ import irmb.flowsim.model.geometry.PolyLine;
 import irmb.flowsim.model.geometry.Shape;
 import irmb.flowsim.presentation.factories.ShapeFactory;
 
+import java.util.List;
+
 /**
  * Created by Sven on 02.09.2016.
  */
@@ -20,6 +22,16 @@ public class PolyLineBuilder extends ShapeBuilder {
     @Override
     public void addPoint(Point point) {
         polyLine.addPoint(point);
+    }
+
+    @Override
+    public void setLastPoint(Point point) {
+        List<Point> pointList = polyLine.getPointList();
+        int size = pointList.size();
+        if (size == 0)
+            polyLine.addPoint(point);
+        else
+            pointList.set(size - 1, point);
     }
 
     @Override

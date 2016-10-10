@@ -20,6 +20,7 @@ public class RectangleBuilderTest extends Rectangle {
     private RectangleBuilder rectangleBuilder;
     private Point first;
     private Point second;
+    private Point third;
 
     @Before
     public void setUp() throws Exception {
@@ -27,6 +28,7 @@ public class RectangleBuilderTest extends Rectangle {
         rectangleBuilder = new RectangleBuilder(factory);
         first = new Point(5, 3);
         second = new Point(7, 8);
+        third = new Point(9, 4);
     }
 
     @Test
@@ -71,5 +73,42 @@ public class RectangleBuilderTest extends Rectangle {
         rectangleBuilder.addPoint(first);
         rectangleBuilder.addPoint(second);
         assertTrue(rectangleBuilder.isObjectFinished());
+    }
+
+    @Test
+    public void whenSettingLastPointWithoutAddingPoint_shouldSetFirstPoint() {
+        rectangleBuilder.setLastPoint(first);
+
+        RectangleBuilderTest rectangle = (RectangleBuilderTest) rectangleBuilder.getShape();
+        assertEquals(first, rectangle.getFirst());
+    }
+
+    @Test
+    public void whenAddingPointAfterSettingLastPoint_shouldSetSecondPoint() {
+        rectangleBuilder.setLastPoint(first);
+        rectangleBuilder.addPoint(second);
+
+        RectangleBuilderTest rectangle = (RectangleBuilderTest) rectangleBuilder.getShape();
+        assertEquals(second, rectangle.getSecond());
+    }
+
+    @Test
+    public void whenAddingTwoPointsThenSettingLastPoint_shouldOnlyAdjustSecond() {
+        rectangleBuilder.addPoint(first);
+        rectangleBuilder.addPoint(second);
+        rectangleBuilder.setLastPoint(third);
+
+        RectangleBuilderTest rectangle = (RectangleBuilderTest) rectangleBuilder.getShape();
+        assertEquals(first, rectangle.getFirst());
+        assertEquals(third, rectangle.getSecond());
+    }
+
+    @Test
+    public void whenAddingOnePointThenSettingLastPoint_shouldAdjustFirstPoint() {
+        rectangleBuilder.addPoint(first);
+        rectangleBuilder.setLastPoint(second);
+
+        RectangleBuilderTest rectangle = (RectangleBuilderTest) rectangleBuilder.getShape();
+        assertEquals(second, rectangle.getFirst());
     }
 }

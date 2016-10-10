@@ -6,6 +6,7 @@ import irmb.flowsim.model.geometry.Point;
 import irmb.flowsim.model.geometry.Rectangle;
 import irmb.flowsim.presentation.*;
 
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.awt.event.MouseListener;
 /**
  * Created by Sven on 27.08.2016.
  */
-public class TempPainter extends JFrame implements MouseListener {
+public class TempPainter extends JFrame implements MouseListener, MouseMotionListener {
 
 
     private GraphicViewPresenter presenter;
@@ -33,7 +34,7 @@ public class TempPainter extends JFrame implements MouseListener {
 //        this.presenter = presenter;
         setButtonActions();
         panel.addMouseListener(this);
-//        panel.addMouseMotionListener(this);
+        panel.addMouseMotionListener(this);
     }
 
     private void setButtonActions() {
@@ -77,5 +78,17 @@ public class TempPainter extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        int mouseX = e.getXOnScreen() - getX();
+        int mouseY = e.getYOnScreen() - getY();
+        presenter.handleMouseMove(mouseX, mouseY);
     }
 }
