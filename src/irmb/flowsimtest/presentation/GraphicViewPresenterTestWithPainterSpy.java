@@ -397,6 +397,24 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 sut.handleLeftClick(first.getX(), first.getY());
                 sut.handleRightClick(0, 0);
             }
+
+            public class CancelLivePaintingContext {
+                @Test
+                public void cancelLineAcceptanceTest() {
+                    sut.activatePaintMode("Line");
+
+                    sut.handleLeftClick(first.getX(), first.getY());
+                    sut.handleMouseMove(second.getX(), second.getY());
+                    sut.handleRightClick(third.getX(), third.getY());
+
+                    assertEquals(2, painterSpy.getTimesClearCalled());
+                }
+
+                @Test
+                public void cancelPolyLineAcceptanceTest() {
+
+                }
+            }
         }
     }
 

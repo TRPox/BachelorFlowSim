@@ -7,22 +7,21 @@ import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by Sven on 05.09.2016.
- */
 public class SwingPainter extends Painter {
 
     private final GraphicPanel graphicPanel;
-    private Graphics graphics;
 
     public SwingPainter(GraphicPanel graphicPanel) {
         this.graphicPanel = graphicPanel;
-        this.graphics = graphicPanel.getGraphics();
+    }
+
+    private Graphics getGraphics() {
+        return graphicPanel.getGraphics();
     }
 
     @Override
     protected void paintLine(Point start, Point end) {
-        graphics.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
+        getGraphics().drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 
     @Override
@@ -31,8 +30,7 @@ public class SwingPainter extends Painter {
         int minY = start.getY() < end.getY() ? start.getY() : end.getY();
         int width = Math.abs(start.getX() - end.getX());
         int height = Math.abs(start.getY() - end.getY());
-
-        graphics.drawRect(minX, minY, width, height);
+        getGraphics().drawRect(minX, minY, width, height);
     }
 
     @Override
@@ -40,12 +38,13 @@ public class SwingPainter extends Painter {
         int minX = center.getX() - (int) radius;
         int minY = center.getY() - (int) radius;
         int diameter = (int) radius * 2;
-        graphics.drawOval(minX, minY, diameter, diameter);
+        getGraphics().drawOval(minX, minY, diameter, diameter);
     }
 
     @Override
     public void clear() {
-        graphicPanel.paintComponent(graphicPanel.getGraphics());
+        graphicPanel.paintComponent(getGraphics());
+//        graphicPanel.update(graphicPanel.getGraphics());
 //        try {
 //            Method m = graphicPanel.getClass().getSuperclass().getSuperclass().getDeclaredMethod("paintComponent", Graphics.class);
 //            m.setAccessible(true);

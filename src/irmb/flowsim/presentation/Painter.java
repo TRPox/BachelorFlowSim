@@ -4,9 +4,7 @@ import irmb.flowsim.model.geometry.*;
 
 import java.util.List;
 
-/**
- * Created by Sven on 09.08.2016.
- */
+
 public abstract class Painter implements ShapeVisitor {
     @Override
     public void visit(Line line) {

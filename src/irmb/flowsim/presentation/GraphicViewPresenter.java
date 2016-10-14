@@ -41,6 +41,7 @@ public class GraphicViewPresenter {
 
     public void handleRightClick(int x, int y) {
         paintEnabled = false;
+        painter.clear();
     }
 
     public void handleMouseMove(int x, int y) {
