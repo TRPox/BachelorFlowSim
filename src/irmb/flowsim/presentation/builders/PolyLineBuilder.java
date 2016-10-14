@@ -27,15 +27,12 @@ public class PolyLineBuilder extends ShapeBuilder {
     @Override
     public void setLastPoint(Point point) {
         List<Point> pointList = polyLine.getPointList();
-        int size = pointList.size();
-        if (size == 0)
-            polyLine.addPoint(point);
-        else
-            pointList.set(size - 1, point);
+        pointList.set(pointList.size() - 1, point);
     }
 
     @Override
     public Shape getShape() {
         return polyLine;
     }
+
 }

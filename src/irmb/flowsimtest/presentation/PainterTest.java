@@ -1,8 +1,10 @@
 package irmb.flowsimtest.presentation;
 
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import irmb.flowsim.model.geometry.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Sven on 02.09.2016.
  */
+@RunWith(HierarchicalContextRunner.class)
 public class PainterTest {
 
     private final double delta = 0.000001;
@@ -98,15 +101,22 @@ public class PainterTest {
     }
 
     @Test
-    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineWithLastTwoPoints() {
-        PolyLine polyLine = new PolyLine();
-        polyLine.addPoint(first);
-        polyLine.addPoint(second);
-        polyLine.addPoint(end);
+    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineTwice() {
+        PolyLine polyLine = makePolyLineWithThreePoints();
 
         painter.visit(polyLine);
-        assertEquals(second, painter.getReceivedPointList().get(0));
-        assertEquals(end, painter.getReceivedPointList().get(1));
+        assertEquals(2, painter.getTimesPaintLineCalled());
+    }
+
+    @Test
+    public void whenReceivingPolyLineWithThreePoints_shouldCallPaintLineWithCorrectCoordinates() {
+        PolyLine polyLine = makePolyLineWithThreePoints();
+
+        painter.visit(polyLine);
+        assertEquals(first, painter.getReceivedPointList().get(0));
+        assertEquals(second, painter.getReceivedPointList().get(1));
+        assertEquals(second, painter.getReceivedPointList().get(2));
+        assertEquals(end, painter.getReceivedPointList().get(3));
     }
 
     @Test
@@ -127,5 +137,14 @@ public class PainterTest {
         assertEquals(first, painter.getFirstReceived());
         assertEquals(first.distanceTo(second), painter.getReceivedRadius(), delta);
     }
+
+    private PolyLine makePolyLineWithThreePoints() {
+        PolyLine polyLine = new PolyLine();
+        polyLine.addPoint(first);
+        polyLine.addPoint(second);
+        polyLine.addPoint(end);
+        return polyLine;
+    }
+
 
 }

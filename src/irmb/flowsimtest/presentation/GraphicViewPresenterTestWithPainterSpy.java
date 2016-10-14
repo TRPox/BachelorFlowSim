@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -48,7 +46,6 @@ public class GraphicViewPresenterTestWithPainterSpy {
         sut.handleLeftClick(first.getX(), first.getY());
         sut.handleLeftClick(second.getX(), second.getY());
     }
-
 
     public class ActivatedPaintModeContext {
 
@@ -110,69 +107,92 @@ public class GraphicViewPresenterTestWithPainterSpy {
                     sut.handleLeftClick(first.getX(), first.getY());
 
                     sut.handleMouseMove(second.getX(), second.getY());
+                    assertTrue(painterSpy.wasPaintLineCalled());
+                    assertTrue(painterSpy.wasClearCalled());
+                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
                     assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
 
-                    sut.handleLeftClick(third.getX(), third.getY());
+                    sut.handleMouseMove(third.getX(), third.getY());
                     assertEquals(2, painterSpy.getTimesPaintLineCalled());
+                    assertEquals(2, painterSpy.getTimesClearCalled());
+                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
+
+                    sut.handleLeftClick(third.getX(), third.getY());
                     assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
                     assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
+                    assertEquals(3, painterSpy.getTimesPaintLineCalled());
                 }
 
                 @Test
-                public void whenMovingMouseBeforeLeftClick_shouldNotCallPaintLine() {
+                public void whenMovingMouseBeforeLeftClick_shouldNotCallClearOrPaintLine() {
                     sut.handleMouseMove(first.getX(), first.getY());
-
+                    assertFalse(painterSpy.wasClearCalled());
                     assertFalse(painterSpy.wasPaintLineCalled());
                 }
 
-                @Test
-                public void whenMovingMouseAfterLeftClick_shouldCallPaintLine() {
-                    sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleMouseMove(second.getX(), second.getY());
+                public class LeftClickedOnceContext {
+                    @Before
+                    public void setUp() {
+                        sut.handleLeftClick(first.getX(), first.getY());
+                    }
 
-                    assertTrue(painterSpy.wasPaintLineCalled());
+                    @Test
+                    public void whenMovingMouse_shouldCallClear() {
+                        sut.handleMouseMove(second.getX(), second.getY());
+                        assertTrue(painterSpy.wasClearCalled());
+                    }
+
+                    @Test
+                    public void whenMovingMouse_shouldCallPaintLine() {
+                        sut.handleMouseMove(second.getX(), second.getY());
+                        assertTrue(painterSpy.wasPaintLineCalled());
+                    }
+
+                    @Test
+                    public void whenMovingMouse_shouldAddNewPoint() {
+                        sut.handleMouseMove(second.getX(), second.getY());
+                        assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
+                    }
+
+                    @Test
+                    public void whenMovingMouseTwice_shouldAdjustLastPoint() {
+                        sut.handleMouseMove(second.getX(), second.getY());
+                        sut.handleMouseMove(third.getX(), third.getY());
+                        assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
+                    }
+
+                    @Test
+                    public void whenMovingMouseAndLeftClicking_paintLineShouldReceiveCorrectCoordinates() {
+                        sut.handleMouseMove(second.getX(), second.getY());
+                        sut.handleLeftClick(second.getX(), second.getY());
+
+                        assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
+                        assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
+                    }
+
+                    public class LeftClickedTwiceContext {
+                        @Before
+                        public void setUp() {
+                            sut.handleLeftClick(second.getX(), second.getY());
+                        }
+
+                        @Test
+                        public void whenMovingMouse_shouldNotAdjustLastPoint() {
+                            sut.handleMouseMove(third.getX(), third.getY());
+
+                            assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
+                        }
+
+                        @Test
+                        public void whenMovingMouse_shouldNotCallPaintLineAgain() {
+                            sut.handleMouseMove(third.getX(), third.getY());
+
+                            assertEquals(1, painterSpy.getTimesPaintLineCalled());
+                        }
+                    }
+
                 }
 
-                @Test
-                public void whenMovingMouseAfterLeftClick_shouldCallPaintLineWithCorrectCoordinates() {
-                    sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleMouseMove(second.getX(), second.getY());
-
-                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
-                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
-                }
-
-                @Test
-                public void whenMovingMouseTwice_shouldCallPaintLineWithAdjustedLastPoint() {
-                    sut.handleLeftClick(first.getX(), first.getY());
-
-                    sut.handleMouseMove(second.getX(), second.getY());
-                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
-
-                    sut.handleMouseMove(third.getX(), third.getY());
-
-                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
-                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
-                }
-
-                @Test
-                public void whenBuildingCompleteLineWithMouseMove_shouldCallPaintLineWithCorrectCoordinates() {
-                    sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleMouseMove(second.getX(), second.getY());
-                    sut.handleLeftClick(third.getX(), third.getY());
-
-                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
-                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
-                }
-
-                @Test
-                public void whenMovingMouseAfterCompletingLine_shouldNotCallPaintLine() {
-                    sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleLeftClick(second.getX(), second.getY());
-                    sut.handleMouseMove(third.getX(), third.getY());
-
-                    assertEquals(1, painterSpy.getTimesPaintLineCalled());
-                }
             }
         }
 
@@ -189,45 +209,58 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 sut.handleLeftClick(third.getX(), third.getY());
 
 
-                assertEquals(2, painterSpy.getTimesPaintLineCalled());
+                assertEquals(3, painterSpy.getTimesPaintLineCalled());
                 Point firstReceived = painterSpy.getReceivedPointList().get(0);
                 Point secondReceived = painterSpy.getReceivedPointList().get(1);
                 Point thirdReceived = painterSpy.getReceivedPointList().get(2);
                 Point fourthReceived = painterSpy.getReceivedPointList().get(3);
+                Point fifthReceived = painterSpy.getReceivedPointList().get(4);
+                Point sixthReceived = painterSpy.getReceivedPointList().get(5);
                 assertActualPointEqualsExpected(firstReceived, first);
                 assertActualPointEqualsExpected(secondReceived, second);
-                assertActualPointEqualsExpected(thirdReceived, second);
-                assertActualPointEqualsExpected(fourthReceived, third);
+                assertActualPointEqualsExpected(thirdReceived, first);
+                assertActualPointEqualsExpected(fourthReceived, second);
+                assertActualPointEqualsExpected(fifthReceived, second);
+                assertActualPointEqualsExpected(sixthReceived, third);
             }
 
 
             @Test
-            public void whenLeftClickingThreeTimes_shouldCallPaintLineTwice() {
+            public void whenLeftClickingThreeTimes_shouldCallPaintLineThreeTimes() {
                 transmitTwoPointsToPresenter(first, second);
                 sut.handleLeftClick(third.getX(), third.getY());
 
-                assertEquals(2, painterSpy.getTimesPaintLineCalled());
+                assertEquals(3, painterSpy.getTimesPaintLineCalled());
             }
 
-//            public class LivePaintingPolyLineContext {
-//                @Test
-//                public void livePaintingPolyLineAcceptanceTest() {
-//                    Point fourth = new Point(86, 33);
-//                    Point fifth = new Point(511, 355);
-//
-//                    sut.handleLeftClick(first.getX(), first.getY());
-//                    sut.handleMouseMove(second.getX(), second.getY());
-//                    sut.handleLeftClick(third.getX(), third.getY());
-//                    sut.handleMouseMove(fourth.getX(), fourth.getY());
-//                    sut.handleLeftClick(fifth.getX(), fifth.getY());
-//
-//                    assertEquals(4, painterSpy.getTimesPaintLineCalled());
-//                    List<Point> pointList = painterSpy.getReceivedPointList();
-//                    assertActualPointEqualsExpected(pointList.get(0), first);
-//                    assertActualPointEqualsExpected(pointList.get(1), third);
-//                    assertActualPointEqualsExpected(pointList.get(2), fifth);
-//                }
-//            }
+            public class LivePaintingPolyLineContext {
+                @Test
+                public void livePaintingPolyLineAcceptanceTest() {
+
+                    sut.handleLeftClick(first.getX(), first.getY());
+
+                    sut.handleMouseMove(second.getX(), second.getY());
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(0), first);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(1), second);
+                    assertTrue(painterSpy.wasClearCalled());
+                    assertEquals(1, painterSpy.getTimesPaintLineCalled());
+
+                    sut.handleLeftClick(second.getX(), second.getY());
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(2), first);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(3), second);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(4), second);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(5), second);
+                    assertEquals(3, painterSpy.getTimesPaintLineCalled());
+
+                    sut.handleMouseMove(third.getX(), third.getY());
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(6), first);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(7), second);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(8), second);
+                    assertActualPointEqualsExpected(painterSpy.getReceivedPointList().get(9), third);
+                    assertEquals(2, painterSpy.getTimesClearCalled());
+                    assertEquals(5, painterSpy.getTimesPaintLineCalled());
+                }
+            }
 
         }
 
@@ -265,10 +298,21 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 @Test
                 public void livePaintingRectangleAcceptanceTest() {
                     sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleMouseMove(second.getX(), second.getY());
-                    sut.handleLeftClick(third.getX(), third.getY());
 
+                    sut.handleMouseMove(second.getX(), second.getY());
+                    assertTrue(painterSpy.wasPaintRectangleCalled());
+                    assertTrue(painterSpy.wasClearCalled());
+                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
+                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), second);
+
+                    sut.handleMouseMove(third.getX(), third.getY());
                     assertEquals(2, painterSpy.getTimesPaintRectangleCalled());
+                    assertEquals(2, painterSpy.getTimesClearCalled());
+                    assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
+
+
+                    sut.handleLeftClick(third.getX(), third.getY());
+                    assertEquals(3, painterSpy.getTimesPaintRectangleCalled());
                     assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
                     assertActualPointEqualsExpected(painterSpy.getSecondReceived(), third);
                 }
@@ -291,7 +335,6 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 assertEquals(distance, painterSpy.getReceivedRadius(), delta);
             }
 
-
             private double getExpectedRadius() {
                 return first.distanceTo(second);
             }
@@ -300,10 +343,19 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 @Test
                 public void livePaintingCircleAcceptanceTest() {
                     sut.handleLeftClick(first.getX(), first.getY());
-                    sut.handleMouseMove(second.getX(), second.getY());
-                    sut.handleLeftClick(third.getX(), third.getY());
 
+                    sut.handleMouseMove(second.getX(), second.getY());
+                    assertTrue(painterSpy.wasPaintCircleCalled());
+                    assertTrue(painterSpy.wasClearCalled());
+                    assertEquals(first.distanceTo(second), painterSpy.getReceivedRadius(), delta);
+
+                    sut.handleMouseMove(third.getX(), third.getY());
                     assertEquals(2, painterSpy.getTimesPaintCircleCalled());
+                    assertEquals(2, painterSpy.getTimesClearCalled());
+                    assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
+                    assertEquals(first.distanceTo(third), painterSpy.getReceivedRadius(), delta);
+
+                    sut.handleLeftClick(third.getX(), third.getY());
                     assertActualPointEqualsExpected(painterSpy.getFirstReceived(), first);
                     assertEquals(first.distanceTo(third), painterSpy.getReceivedRadius(), delta);
                 }
@@ -346,8 +398,7 @@ public class GraphicViewPresenterTestWithPainterSpy {
                 sut.handleRightClick(0, 0);
             }
         }
-
-
     }
+
 
 }

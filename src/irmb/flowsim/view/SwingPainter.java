@@ -4,16 +4,20 @@ import irmb.flowsim.model.geometry.Point;
 import irmb.flowsim.presentation.Painter;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by Sven on 05.09.2016.
  */
 public class SwingPainter extends Painter {
 
-    private final Graphics graphics;
+    private final GraphicPanel graphicPanel;
+    private Graphics graphics;
 
-    public SwingPainter(Graphics graphics) {
-        this.graphics = graphics;
+    public SwingPainter(GraphicPanel graphicPanel) {
+        this.graphicPanel = graphicPanel;
+        this.graphics = graphicPanel.getGraphics();
     }
 
     @Override
@@ -37,5 +41,21 @@ public class SwingPainter extends Painter {
         int minY = center.getY() - (int) radius;
         int diameter = (int) radius * 2;
         graphics.drawOval(minX, minY, diameter, diameter);
+    }
+
+    @Override
+    public void clear() {
+        graphicPanel.paintComponent(graphicPanel.getGraphics());
+//        try {
+//            Method m = graphicPanel.getClass().getSuperclass().getSuperclass().getDeclaredMethod("paintComponent", Graphics.class);
+//            m.setAccessible(true);
+//            m.invoke(graphicPanel, graphicPanel.getGraphics());
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
     }
 }

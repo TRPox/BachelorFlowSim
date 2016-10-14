@@ -12,7 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by Sven on 05.09.2016.
@@ -22,54 +25,47 @@ import static org.junit.Assert.assertEquals;
 public class CircleBuilderTest extends Circle {
 
     private final double delta = 0.000001;
-
-    private ShapeBuilderFactory factory;
     private CircleBuilder builder;
-    private Point first;
-    private Point second;
+    private Point first = new Point(5, 3);
 
     @Before
     public void setUp() throws Exception {
-        factory = new ShapeBuilderFactoryImpl(new ShapeFactoryStub());
+        ShapeBuilderFactory factory = new ShapeBuilderFactoryImpl(new ShapeFactoryStub());
         builder = (CircleBuilder) factory.makeShapeBuilder("Circle");
-        first = new Point(5, 3);
-        second = new Point(10, 5);
-    }
-
-    private double getExpectedRadius() {
-        return first.distanceTo(second);
     }
 
     @Test
-    public void whenSettingLastPointBeforeAddingPoint_shouldSetCenter() {
-        builder.setLastPoint(first);
+    public void whenAddingOnePoint_centerShouldEqualAddedPoint() {
+        builder.addPoint(first);
 
         CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
         assertEquals(first, circle.getCenter());
     }
 
     @Test
-    public void whenAddingPointAfterSettingLastPoint_shouldSetRadius() {
-        builder.setLastPoint(first);
-        builder.addPoint(second);
+    public void whenAddingOnePoint_isObjectFinishedShouldBeFalse() {
+        builder.addPoint(first);
 
+        assertFalse(builder.isObjectFinished());
+    }
+
+    @Test
+    public void whenSettingLastPoint_shouldDoNothing() {
+        builder.setLastPoint(first);
         CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
-        assertEquals(getExpectedRadius(), circle.getRadius(), delta);
+        assertNull(circle.getCenter());
     }
 
     public class OnePointAddedContext {
-
+        private Point second = new Point(10, 5);
 
         @Before
         public void setUp() {
             builder.addPoint(first);
         }
 
-
-        @Test
-        public void centerShouldEqualAddedPoint() {
-            CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
-            assertEquals(first, circle.getCenter());
+        private double getExpectedRadius() {
+            return first.distanceTo(second);
         }
 
         @Test
@@ -83,7 +79,14 @@ public class CircleBuilderTest extends Circle {
         }
 
         @Test
-        public void whenSettingLastPointAfterAddingOnePoint_shouldAdjustCenter() {
+        public void whenAddingSecondPoint_isObjectFinishedShouldBeTrue() {
+            builder.addPoint(second);
+
+            assertTrue(builder.isObjectFinished());
+        }
+
+        @Test
+        public void whenSettingLastPoint_shouldAdjustCenter() {
             builder.setLastPoint(second);
 
             CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
@@ -91,6 +94,9 @@ public class CircleBuilderTest extends Circle {
         }
 
         public class TwoPointsAddedContext {
+
+            private final Point third = new Point(2, 8);
+
             @Before
             public void setUp() {
                 builder.addPoint(second);
@@ -106,13 +112,23 @@ public class CircleBuilderTest extends Circle {
             }
 
             @Test
-            public void whenSettingLastPointAfterAddingTwoPoints_shouldOnlyAdjustRadius() {
-                Point third = new Point(9, 7);
+            public void whenSettingLastPoint_shouldAdjustRadius() {
                 builder.setLastPoint(third);
 
                 CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
-                assertEquals(first, circle.getCenter());
                 assertEquals(first.distanceTo(third), circle.getRadius(), delta);
+            }
+
+            @Test
+            public void whenSettingLastPointAfterAddingPoint_shouldAdjustRadius() {
+                Point point = new Point(10, 11);
+
+                builder.addPoint(third);
+                builder.setLastPoint(point);
+
+                CircleBuilderTest circle = (CircleBuilderTest) builder.getShape();
+                assertEquals(first, circle.getCenter());
+                assertEquals(point.distanceTo(first), circle.getRadius(), delta);
             }
         }
     }

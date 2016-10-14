@@ -23,24 +23,29 @@ public class CircleBuilder extends ShapeBuilder {
         if (pointsAdded == 0)
             circle.setCenter(point);
         else if (pointsAdded == 1) {
-            double radius = circle.getCenter().distanceTo(point);
-            circle.setRadius(radius);
+            circle.setRadius(getRadius(point));
+            objectFinished = true;
         }
         pointsAdded++;
     }
 
+    private double getRadius(Point point) {
+        return circle.getCenter().distanceTo(point);
+    }
+
     @Override
     public void setLastPoint(Point point) {
-        if (pointsAdded == 0)
-            addPoint(point);
-        else if (pointsAdded == 1)
+        if (pointsAdded == 1)
             circle.setCenter(point);
-        else
-            circle.setRadius(circle.getCenter().distanceTo(point));
+        else if (pointsAdded >= 2) {
+            circle.setRadius(getRadius(point));
+        }
     }
 
     @Override
     public Shape getShape() {
         return circle;
     }
+
+
 }

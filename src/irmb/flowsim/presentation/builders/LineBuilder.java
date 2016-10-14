@@ -31,11 +31,9 @@ public class LineBuilder extends ShapeBuilder {
 
     @Override
     public void setLastPoint(Point point) {
-        if (pointsAdded == 0)
-            addPoint(point);
-        else if (pointsAdded == 1)
+        if (pointsAdded == 1)
             line.setStart(point);
-        else
+        else if (pointsAdded >= 2)
             line.setEnd(point);
     }
 
@@ -43,4 +41,5 @@ public class LineBuilder extends ShapeBuilder {
     public Shape getShape() {
         return line;
     }
+
 }

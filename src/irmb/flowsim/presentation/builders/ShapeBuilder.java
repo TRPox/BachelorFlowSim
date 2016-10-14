@@ -18,13 +18,12 @@ public abstract class ShapeBuilder {
 
     public abstract void addPoint(Point point);
 
-    public abstract void setLastPoint(Point point);
-
     public abstract Shape getShape();
 
     public boolean isObjectFinished() {
         return objectFinished;
     }
 
+    public abstract void setLastPoint(Point point);
 }
 

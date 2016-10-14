@@ -10,19 +10,17 @@ import irmb.flowsim.presentation.factories.ShapeBuilderFactory;
 public class GraphicViewPresenter {
 
     private Painter painter;
-    private int timesCalled;
-    private String objectType;
+    private int pointsAdded;
     private boolean paintEnabled;
     private ShapeBuilderFactory shapeBuilderFactory;
     private ShapeBuilder shapeBuilder;
-    private boolean mouseMoved;
 
     public GraphicViewPresenter(ShapeBuilderFactory shapeBuilderFactory) {
         this.shapeBuilderFactory = shapeBuilderFactory;
     }
 
     public void handleLeftClick(int x, int y) {
-        timesCalled++;
+        pointsAdded++;
         if (paintEnabled) {
             paintShapes(x, y);
         }
@@ -30,8 +28,7 @@ public class GraphicViewPresenter {
 
     private void paintShapes(int x, int y) {
         shapeBuilder.addPoint(makePoint(x, y));
-        if (timesCalled >= 2) {
-            shapeBuilder.setLastPoint(makePoint(x, y));
+        if (pointsAdded >= 2) {
             shapeBuilder.getShape().accept(painter);
             if (shapeBuilder.isObjectFinished())
                 deactivatePaintMode();
@@ -46,11 +43,23 @@ public class GraphicViewPresenter {
         paintEnabled = false;
     }
 
+    public void handleMouseMove(int x, int y) {
+        if (paintEnabled && pointsAdded > 0) {
+            painter.clear();
+            if (pointsAdded > 1)
+                shapeBuilder.setLastPoint(makePoint(x, y));
+            else {
+                shapeBuilder.addPoint(makePoint(x, y));
+                pointsAdded++;
+            }
+            shapeBuilder.getShape().accept(painter);
+        }
+    }
+
     public void activatePaintMode(String type) {
-        objectType = type;
-        timesCalled = 0;
+        pointsAdded = 0;
         paintEnabled = true;
-        shapeBuilder = shapeBuilderFactory.makeShapeBuilder(objectType);
+        shapeBuilder = shapeBuilderFactory.makeShapeBuilder(type);
     }
 
     public void setPainter(Painter painter) {
@@ -62,14 +71,4 @@ public class GraphicViewPresenter {
     }
 
 
-    public void handleMouseMove(int x, int y) {
-        if (!mouseMoved) {
-            shapeBuilder.addPoint(makePoint(x, y));
-            mouseMoved = true;
-        } else
-            shapeBuilder.setLastPoint(makePoint(x, y));
-        if (paintEnabled)
-            if (timesCalled > 0)
-                shapeBuilder.getShape().accept(painter);
-    }
 }

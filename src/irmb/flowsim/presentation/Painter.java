@@ -24,9 +24,8 @@ public abstract class Painter implements ShapeVisitor {
         if (polyLine.getPointList().size() < 2)
             return;
         else {
-            Point secondLast = pointList.get(pointList.size() - 2);
-            Point last = pointList.get(pointList.size() - 1);
-            paintLine(secondLast, last);
+            for (int i = 0; i < pointList.size() - 1; )
+                paintLine(pointList.get(i), pointList.get(++i));
         }
     }
 
@@ -41,4 +40,6 @@ public abstract class Painter implements ShapeVisitor {
     protected abstract void paintRectangle(Point start, Point end);
 
     protected abstract void paintCircle(Point center, double radius);
+
+    public abstract void clear();
 }
